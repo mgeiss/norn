@@ -29,9 +29,8 @@ import java.util.ArrayList;
 /**
  * <code>LocateNorn</code>
  *
- * @version 1.0
  * @author  Markus Geiss
- * @since   JDK1.1
+ * @version 1.0
  * @see     mage.rmi.norn.NornNode
  */
 public final class LocateNorn {
@@ -66,7 +65,7 @@ public final class LocateNorn {
 
     /**
      * 
-     * @param multicastPort port on which the multicast accepts requests
+     * @param multicastPort port on which the udp multicast accepts requests
      * @return a new created <code>NornNode</code>
      * @throws RemoteException 
      */
