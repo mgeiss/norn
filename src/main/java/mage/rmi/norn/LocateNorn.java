@@ -26,30 +26,73 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+/**
+ * <code>LocateNorn</code>
+ *
+ * @version 1.0
+ * @author  Markus Geiss
+ * @since   JDK1.1
+ * @see     mage.rmi.norn.NornNode
+ */
 public final class LocateNorn {
     
     private static NornNodeThread nornNodeThread;
 
+    /**
+     * Private constructor to disable public construction.
+     */
     private LocateNorn() {
         super();
     }
 
+    /**
+     * 
+     * @return a new created <code>NornNode</code>
+     * @throws RemoteException
+     */
     public static NornNode createNode() throws RemoteException {
         return LocateNorn.createNode(NornNode.MULTICAST_ADDRESS, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT);
     }
 
+    /**
+     * 
+     * @param multicastAddress host for the udp multicast
+     * @return a new created <code>NornNode</code>
+     * @throws RemoteException 
+     */
     public static NornNode createNode(String multicastAddress) throws RemoteException {
         return LocateNorn.createNode(multicastAddress, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT);
     }
 
+    /**
+     * 
+     * @param multicastPort port on which the multicast accepts requests
+     * @return a new created <code>NornNode</code>
+     * @throws RemoteException 
+     */
     public static NornNode createNode(int multicastPort) throws RemoteException {
         return LocateNorn.createNode(NornNode.MULTICAST_ADDRESS, multicastPort, NornNode.REGISTRY_PORT);
     }
 
+    /**
+     * 
+     * @param multicastAddress host for the udp multicast
+     * @param multicastPort port on which the udp multicast accepts requests
+     * @return a new created <code>NornNode</code>
+     * @throws RemoteException 
+     */
     public static NornNode createNode(String multicastAddress, int multicastPort) throws RemoteException {
         return LocateNorn.createNode(multicastAddress, multicastPort, NornNode.REGISTRY_PORT);
     }
 
+    /**
+     * 
+     * @param multicastAddress host for the udp multicast
+     * @param multicastPort port on which the udp multicast accepts requests
+     * @param registryPort port on which the registry accepts requests 
+     * @return a new created <code>NornNode</code>
+     * @throws RemoteException 
+     */
     public static NornNode createNode(String multicastAddress, int multicastPort, int registryPort) throws RemoteException {
         NornNode node = null;
 
