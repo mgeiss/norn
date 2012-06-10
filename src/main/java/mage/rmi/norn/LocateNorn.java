@@ -51,7 +51,7 @@ public final class LocateNorn {
      * that accepts requests on port 42000. This instance will join the 
      * multicast group on 234.5.6.7.
      * 
-     * Note that also a <code>Registry</code> instance  will be created and
+     * <p>Note that also a <code>Registry</code> instance  will be created and
      * exported on the local host that accepts requests on port 1099. 
      * 
      * @return the norn node
@@ -66,7 +66,7 @@ public final class LocateNorn {
      * that accepts requests on port 42000. This instance will join the
      * multicast group on the specified <code>multicastAddress</code>.
      * 
-     * Note that also a <code>Registry</code> instance  will be created and
+     * <p>Note that also a <code>Registry</code> instance  will be created and
      * exported on the local host that accepts requests on port 1099. 
      * 
      * @param multicastAddress group for the udp multicast
@@ -83,7 +83,7 @@ public final class LocateNorn {
      * instance will join the multicast group on the specified
      * <code>multicastAddress</code>.
      * 
-     * Note that also a <code>Registry</code> instance  will be created and
+     * <p>Note that also a <code>Registry</code> instance  will be created and
      * exported on the local host that accepts requests on port 1099. 
      * 
      * @param multicastAddress host for the udp multicast
@@ -101,7 +101,7 @@ public final class LocateNorn {
      * instance will join the multicast group on the specified
      * <code>multicastAddress</code>.
      * 
-     * Note that also a <code>Registry</code> instance  will be created and
+     * <p>Note that also a <code>Registry</code> instance  will be created and
      * exported on the local host that accepts requests on the specified
      * <code>regsitryPort</code>. 
      * 
@@ -156,10 +156,10 @@ public final class LocateNorn {
 
     /**
      * Returns a reference to the <code>NornNode</code> for the default multicast 
-     * address 234.5.6.7 on the default multicats port 42000. <code>getNode</code>
+     * address 234.5.6.7 on the default multicast port 42000. <code>getNode</code>
      * will block for 5 seconds to receive node informations.
      * 
-     * Note that also a reference for the remote object <code>Registry</code>
+     * <p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
      * @return reference to the norn node
@@ -171,11 +171,11 @@ public final class LocateNorn {
 
     /**
      * Returns a reference to the <code>NornNode</code> for the default multicast 
-     * address 234.5.6.7 on the default multicats port 42000. <code>getNode</code>
+     * address 234.5.6.7 on the default multicast port 42000. <code>getNode</code>
      * will block for the specified <code>socketTimeout</code> to receive node
      * informations.
      * 
-     * Note that also a reference for the remote object <code>Registry</code>
+     * <p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
      * @param socketTimeout the specified timeout in milliseconds
@@ -188,10 +188,10 @@ public final class LocateNorn {
 
     /**
      * Returns a reference to the <code>NornNode</code> for the specified 
-     * <code>multicastAddress</code> on the default multicats port 42000.
+     * <code>multicastAddress</code> on the default multicast port 42000.
      * <code>getNode</code> will block for 5 seconds to receive node informations.
      * 
-     * Note that also a reference for the remote object <code>Registry</code>
+     * <p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
      * @param multicastAddress group for the multicast
@@ -204,10 +204,10 @@ public final class LocateNorn {
 
     /**
      * Returns a reference to the <code>NornNode</code> for the specified 
-     * <code>multicastAddress</code> on the specified <code>multicatsPort</code>.
+     * <code>multicastAddress</code> on the specified <code>multicastPort</code>.
      * <code>getNode</code> will block for 5 seconds to receive node informations.
      * 
-     * Note that also a reference for the remote object <code>Registry</code>
+     * <p><p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
      * @param multicastAddress group for the multicast
@@ -221,11 +221,11 @@ public final class LocateNorn {
 
     /**
      * Returns a reference to the <code>NornNode</code> for the specified 
-     * <code>multicastAddress</code> on the specified <code>multicatsPort</code>.
+     * <code>multicastAddress</code> on the specified <code>multicastPort</code>.
      * <code>getNode</code> will block for the specified <code>socketTimeout</code>
      * to receive node informations.
      * 
-     * Note that also a reference for the remote object <code>Registry</code>
+     * <p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
      * @param multicastAddress group for the multicast
