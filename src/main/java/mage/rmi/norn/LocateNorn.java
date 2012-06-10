@@ -33,9 +33,9 @@ import java.util.ArrayList;
  * 
  * <p>Note that also a reference to a remote object registry will be obtained.
  * 
- * @author  Markus Geiss
+ * @author Markus Geiss
  * @version 1.0
- * @see     mage.rmi.norn.NornNode
+ * @see mage.rmi.norn.NornNode
  */
 public final class LocateNorn {
     
