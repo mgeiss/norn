@@ -92,10 +92,19 @@ public class NornUtility {
     public static double calculateJVMLoad() {
         double load = -1.0D;
         
-        int processors = Runtime.getRuntime().availableProcessors();
+        Runtime runtime = Runtime.getRuntime();
+        
+        int processors = runtime.availableProcessors();
         int threads = ManagementFactory.getThreadMXBean().getThreadCount();
+        
+        double processorUsage = (double)threads / (double)processors;
+        
+        long maxMemory = runtime.maxMemory();
+        long totalMemory = runtime.totalMemory();
+        
+        double memoryUsage = (double)totalMemory / (double)maxMemory;
 
-        load = threads / processors;
+        load = (memoryUsage * 3.0D) + processorUsage;
         
         return load;
     }
