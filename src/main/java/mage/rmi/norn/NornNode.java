@@ -23,7 +23,24 @@ import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 
 /**
- *
+ * <code>NornNode</code> is a reference to a node that provides methods for 
+ * storing and retrieving remote object references bound with arbitrary string
+ * names. The <code>bind</code>, <code>unbind</code>, and <code>rebind</code>
+ * methods are used to alter the name bindings in the registry, and the 
+ * <code>lookup</code> and <code>list</code> methods are used to query the 
+ * current name bindings.
+ * 
+ * <code>start</code> is used to start the multicast listener thread and
+ * <code>stop</code> will stop it.
+ * 
+ * <p>The names used for bindings in a <code>Registry</code> are pure strings,
+ * not parsed. A service which stores its remote reference in a 
+ * <code>NornNode</code> may wish to use a package name as a prefix in the name
+ * binding to reduce the likelihood of namecollisions in the registry.
+ * 
+ * <p>Note that <code>NornNode</code> uses a remote object registry to delegate
+ * all remote object handling.
+ * 
  * @author Markus Geiss
  * @version 1.0
  * @see java.rmi.registry.Registry
@@ -55,19 +72,21 @@ public class NornNode {
     private NornNodeThread nodeThread;
 
     /**
+     * Trusted package private constructor.
      * 
-     * @param nodeInfo
-     * @param registry 
+     * @param nodeInfo node information for this node.
+     * @param registry the remote object registry to be used.
      */
     NornNode(NornNodeInfo nodeInfo, Registry registry) {
         this(nodeInfo, registry, null);
     }
 
     /**
+     * Trusted package private constructor.
      * 
-     * @param nodeInfo
-     * @param registry
-     * @param nodeThread 
+     * @param nodeInfo node information for this node.
+     * @param registry the remote object registry to be used.
+     * @param nodeThread the multicast listener thread that accepts all requests.
      */
     NornNode(NornNodeInfo nodeInfo, Registry registry, NornNodeThread nodeThread) {
         super();
