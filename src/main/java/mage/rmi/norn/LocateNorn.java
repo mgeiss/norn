@@ -28,8 +28,10 @@ import java.util.ArrayList;
 
 /**
  * <code>LocateNorn</code> is used to obtain a reference to a <code>NornNode</code>
- * on a particular multicast group address, or to create a <code>NornNode</code>
- * that accepts call on a specific port.
+ * on a specific multicast address, or to create a <code>NornNode</code> that 
+ * accepts requests on a specific port.
+ * 
+ * <p>Note that also a reference to a remote object registry will be obtained.
  * 
  * @author  Markus Geiss
  * @version 1.0
