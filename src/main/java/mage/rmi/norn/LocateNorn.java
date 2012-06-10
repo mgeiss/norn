@@ -27,8 +27,10 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 /**
- * <code>LocateNorn</code>
- *
+ * <code>LocateNorn</code> is used to obtain a reference to a <code>NornNode</code>
+ * on a particular multicast group address, or to create a <code>NornNode</code>
+ * that accepts call on a specific port.
+ * 
  * @author  Markus Geiss
  * @version 1.0
  * @see     mage.rmi.norn.NornNode
@@ -45,8 +47,14 @@ public final class LocateNorn {
     }
 
     /**
+     * Creates and exports a <code>NornNode</code> instance on the local host
+     * that accepts requests on port 42000. This instance will join the 
+     * multicast group on 234.5.6.7.
      * 
-     * @return a new created <code>NornNode</code>
+     * Note that also a <code>Registry</code> instance  will be created and
+     * exported on the local host that accepts requests on port 1099. 
+     * 
+     * @return the norn node
      * @throws RemoteException
      */
     public static NornNode createNode() throws RemoteException {
@@ -54,9 +62,15 @@ public final class LocateNorn {
     }
 
     /**
+     * Creates and exports a <code>NornNode</code> instance on the local host
+     * that accepts requests on port 42000. This instance will join the
+     * multicast group on the specified <code>multicastAddress</code>.
      * 
-     * @param multicastAddress host for the udp multicast
-     * @return a new created <code>NornNode</code>
+     * Note that also a <code>Registry</code> instance  will be created and
+     * exported on the local host that accepts requests on port 1099. 
+     * 
+     * @param multicastAddress group for the udp multicast
+     * @return the norn node
      * @throws RemoteException 
      */
     public static NornNode createNode(String multicastAddress) throws RemoteException {
@@ -64,20 +78,17 @@ public final class LocateNorn {
     }
 
     /**
+     * Creates and exports a <code>NornNode</code> instance on the local host
+     * that accepts requests on the specified <code>mulitcastPort</code>. This 
+     * instance will join the multicast group on the specified
+     * <code>multicastAddress</code>.
      * 
-     * @param multicastPort port on which the udp multicast accepts requests
-     * @return a new created <code>NornNode</code>
-     * @throws RemoteException 
-     */
-    public static NornNode createNode(int multicastPort) throws RemoteException {
-        return LocateNorn.createNode(NornNode.MULTICAST_ADDRESS, multicastPort, NornNode.REGISTRY_PORT);
-    }
-
-    /**
+     * Note that also a <code>Registry</code> instance  will be created and
+     * exported on the local host that accepts requests on port 1099. 
      * 
      * @param multicastAddress host for the udp multicast
      * @param multicastPort port on which the udp multicast accepts requests
-     * @return a new created <code>NornNode</code>
+     * @return the norn node
      * @throws RemoteException 
      */
     public static NornNode createNode(String multicastAddress, int multicastPort) throws RemoteException {
@@ -85,11 +96,19 @@ public final class LocateNorn {
     }
 
     /**
+     * Creates and exports a <code>NornNode</code> instance on the local host
+     * that accepts requests on the specified <code>mulitcastPort</code>. This 
+     * instance will join the multicast group on the specified
+     * <code>multicastAddress</code>.
      * 
-     * @param multicastAddress host for the udp multicast
-     * @param multicastPort port on which the udp multicast accepts requests
+     * Note that also a <code>Registry</code> instance  will be created and
+     * exported on the local host that accepts requests on the specified
+     * <code>regsitryPort</code>. 
+     * 
+     * @param multicastAddress group for the multicast
+     * @param multicastPort port on which the multicast accepts requests
      * @param registryPort port on which the registry accepts requests 
-     * @return a new created <code>NornNode</code>
+     * @return the norn node
      * @throws RemoteException 
      */
     public static NornNode createNode(String multicastAddress, int multicastPort, int registryPort) throws RemoteException {
@@ -135,22 +154,86 @@ public final class LocateNorn {
         return node;
     }
 
+    /**
+     * Returns a reference to the <code>NornNode</code> for the default multicast 
+     * address 234.5.6.7 on the default multicats port 42000. <code>getNode</code>
+     * will block for 5 seconds to receive node informations.
+     * 
+     * Note that also a reference for the remote object <code>Registry</code>
+     * will be created on the host and port specified by the <code>NornNode</code>. 
+     * 
+     * @return reference to the norn node
+     * @throws RemoteException 
+     */
     public static NornNode getNode() throws RemoteException {
         return LocateNorn.getNode(NornNode.MULTICAST_ADDRESS, NornNode.MULTICAST_PORT);
     }
 
+    /**
+     * Returns a reference to the <code>NornNode</code> for the default multicast 
+     * address 234.5.6.7 on the default multicats port 42000. <code>getNode</code>
+     * will block for the specified <code>socketTimeout</code> to receive node
+     * informations.
+     * 
+     * Note that also a reference for the remote object <code>Registry</code>
+     * will be created on the host and port specified by the <code>NornNode</code>. 
+     * 
+     * @param socketTimeout the specified timeout in milliseconds
+     * @return reference to the norn node
+     * @throws RemoteException 
+     */
     public static NornNode getNode(int socketTimeout) throws RemoteException {
         return LocateNorn.getNode(NornNode.MULTICAST_ADDRESS, NornNode.MULTICAST_PORT, socketTimeout);
     }
 
+    /**
+     * Returns a reference to the <code>NornNode</code> for the specified 
+     * <code>multicastAddress</code> on the default multicats port 42000.
+     * <code>getNode</code> will block for 5 seconds to receive node informations.
+     * 
+     * Note that also a reference for the remote object <code>Registry</code>
+     * will be created on the host and port specified by the <code>NornNode</code>. 
+     * 
+     * @param multicastAddress group for the multicast
+     * @return reference to the norn node
+     * @throws RemoteException 
+     */
     public static NornNode getNode(String multicastAddress) throws RemoteException {
         return LocateNorn.getNode(multicastAddress, NornNode.MULTICAST_PORT, NornNode.SOCKET_TIMEOUT);
     }
 
+    /**
+     * Returns a reference to the <code>NornNode</code> for the specified 
+     * <code>multicastAddress</code> on the specified <code>multicatsPort</code>.
+     * <code>getNode</code> will block for 5 seconds to receive node informations.
+     * 
+     * Note that also a reference for the remote object <code>Registry</code>
+     * will be created on the host and port specified by the <code>NornNode</code>. 
+     * 
+     * @param multicastAddress group for the multicast
+     * @param multicastPort port on which the multicast accepts requests
+     * @return reference to the norn node
+     * @throws RemoteException 
+     */
     public static NornNode getNode(String multicastAddress, int multicastPort) throws RemoteException {
         return LocateNorn.getNode(multicastAddress, multicastPort, NornNode.SOCKET_TIMEOUT);
     }
 
+    /**
+     * Returns a reference to the <code>NornNode</code> for the specified 
+     * <code>multicastAddress</code> on the specified <code>multicatsPort</code>.
+     * <code>getNode</code> will block for the specified <code>socketTimeout</code>
+     * to receive node informations.
+     * 
+     * Note that also a reference for the remote object <code>Registry</code>
+     * will be created on the host and port specified by the <code>NornNode</code>. 
+     * 
+     * @param multicastAddress group for the multicast
+     * @param multicastPort port on which the multicast accepts requests
+     * @param socketTimeout the specified timeout in milliseconds
+     * @return reference to the norn node
+     * @throws RemoteException 
+     */
     public static NornNode getNode(String multicastAddress, int multicastPort, int socketTimeout) throws RemoteException {
         NornNode node = null;
 
