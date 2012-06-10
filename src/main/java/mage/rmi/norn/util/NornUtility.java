@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mage.rmi.norn;
+package mage.rmi.norn.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,8 +24,9 @@ import java.lang.management.ManagementFactory;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import mage.rmi.norn.NornNodeInfo;
 
-public class NornUtil {
+public class NornUtility {
     
     public static final String NORN_LOGGER = "norn.logger";
 

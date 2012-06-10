@@ -30,10 +30,26 @@ import java.rmi.registry.Registry;
  */
 public class NornNode {
 
+    /**
+     * Default address for multicast (234.5.6.7).
+     */
     public static final String MULTICAST_ADDRESS = "234.5.6.7";
+    
+    /**
+     * Default port for multicast (42000).
+     */
     public static final int MULTICAST_PORT = 42000;
+    
+    /**
+     * Default port for registry (1099).
+     */
     public static final int REGISTRY_PORT = Registry.REGISTRY_PORT;
+    
+    /**
+     * Default timeout for multicast socket (5 seconds).
+     */
     public static final int SOCKET_TIMEOUT = 5000;
+    
     private Registry registry;
     private NornNodeInfo nodeInfo;
     private NornNodeThread nodeThread;

@@ -15,6 +15,7 @@
  */
 package mage.rmi.norn;
 
+import mage.rmi.norn.util.NornUtility;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -144,7 +145,7 @@ public final class LocateNorn {
         }
 
         nodeInfo.setRegistryPort(registryPort);
-        nodeInfo.setLoad(NornUtil.calculateJVMLoad());
+        nodeInfo.setLoad(NornUtility.calculateJVMLoad());
 
         Registry registry = LocateRegistry.createRegistry(registryPort);
 
@@ -273,10 +274,10 @@ public final class LocateNorn {
                 } catch (SocketTimeoutException stex) {
                     break;
                 }
-                nodeInfos.add(NornUtil.byteArray2NodeInfo(messageBuffer));
+                nodeInfos.add(NornUtility.byteArray2NodeInfo(messageBuffer));
             }
 
-            NornNodeInfo nodeInfo = NornUtil.getRecentNodeInfo(nodeInfos);
+            NornNodeInfo nodeInfo = NornUtility.getRecentNodeInfo(nodeInfos);
             
             Registry registry = LocateRegistry.getRegistry(nodeInfo.getRegistryAddress(), nodeInfo.getRegistryPort());
             

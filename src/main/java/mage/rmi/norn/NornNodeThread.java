@@ -15,6 +15,7 @@
  */
 package mage.rmi.norn;
 
+import mage.rmi.norn.util.NornUtility;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -60,7 +61,7 @@ public class NornNodeThread extends Thread {
             }
 
         } catch (IOException ioex) {
-            Logger.getLogger(NornUtil.NORN_LOGGER).log(Level.SEVERE, ioex.getMessage(), ioex);
+            Logger.getLogger(NornUtility.NORN_LOGGER).log(Level.SEVERE, ioex.getMessage(), ioex);
         }
 
         if (this.multicastSocket != null && !this.multicastSocket.isClosed()) {
@@ -78,9 +79,9 @@ public class NornNodeThread extends Thread {
     }
 
     private void sendNodeInfo(InetAddress address, int port) throws IOException {
-        this.nodeInfo.setLoad(NornUtil.calculateJVMLoad());
+        this.nodeInfo.setLoad(NornUtility.calculateJVMLoad());
 
-        byte[] messageBuffer = NornUtil.nodeInfo2ByteArray(nodeInfo);
+        byte[] messageBuffer = NornUtility.nodeInfo2ByteArray(nodeInfo);
 
         DatagramPacket message = new DatagramPacket(messageBuffer, messageBuffer.length, address, port);
         try (DatagramSocket datagrammSocket = new DatagramSocket()) {
