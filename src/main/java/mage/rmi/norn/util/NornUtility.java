@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.management.ManagementFactory;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,7 +32,9 @@ import mage.rmi.norn.NornNodeInfo;
 public class NornUtility {
     
     public static final String NORN_LOGGER = "norn.logger";
-
+    
+    private static final MathContext DECIMAL_ROUND_2 = new MathContext(2, RoundingMode.HALF_EVEN);
+    
     public static byte[] nodeInfo2ByteArray(NornNodeInfo nodeInfo) throws IOException {
         byte[] data = null;
 
@@ -91,7 +96,7 @@ public class NornUtility {
 
     public static double calculateJVMLoad() {
         double load = -1.0D;
-        
+                
         Runtime runtime = Runtime.getRuntime();
         
         int processors = runtime.availableProcessors();
@@ -105,6 +110,9 @@ public class NornUtility {
         double memoryUsage = (double)totalMemory / (double)maxMemory;
 
         load = (memoryUsage * 3.0D) + processorUsage;
+
+        BigDecimal bigDecimal = new BigDecimal(load);
+        load = bigDecimal.round(NornUtility.DECIMAL_ROUND_2).doubleValue();
         
         return load;
     }
