@@ -18,6 +18,8 @@ package mage.rmi.norn;
 import java.io.Serializable;
 
 /**
+ * <code>NornNodeInfo</code> holds all information from a remote host. This 
+ * includes information about the registry address, registry port and the load.
  * 
  * @author Markus Geiss
  * @version 1.0
@@ -33,21 +35,23 @@ public class NornNodeInfo implements Serializable {
     private double load = -1.0D;
 
     /**
-     * 
+     * Trusted package private cosdtructor
      */
     NornNodeInfo() {
         super();
     }
 
     /**
+     * Returns the load of the remote host.
      * 
-     * @return 
+     * @return load of the remote host
      */
     public double getLoad() {
         return load;
     }
 
     /**
+     * Package private setter for the load of the remote host.
      * 
      * @param load 
      */
@@ -56,64 +60,72 @@ public class NornNodeInfo implements Serializable {
     }
 
     /**
+     * Returns the multicast address.
      * 
-     * @return 
+     * @return multicast address
      */
     public String getMulticastAddress() {
         return multicastAddress;
     }
 
     /**
+     * Package private setter for the multicast address.
      * 
-     * @param multicastAddress 
+     * @param multicastAddress address of the multicast group
      */
     void setMulticastAddress(String multicastAddress) {
         this.multicastAddress = multicastAddress;
     }
 
     /**
+     * Retunrs the port on which the multicast accepts requests.
      * 
-     * @return 
+     * @return port on which the multicast accepts requests
      */
     public int getMulticastPort() {
         return multicastPort;
     }
 
     /**
+     * Package private setter for the multicast port.
      * 
-     * @param multicastPort 
+     * @param multicastPort port on which the multicast will accept requests 
      */
     void setMulticastPort(int multicastPort) {
         this.multicastPort = multicastPort;
     }
 
     /**
+     * Returns the registry address.
      * 
-     * @return 
+     * @return address of the remote registry
      */
     public String getRegistryAddress() {
         return registryAddress;
     }
 
     /**
+     * Package private setter for the registry address.
      * 
-     * @param registryAddress 
+     * @param registryAddress address of the remote registry
      */
     void setRegistryAddress(String registryAddress) {
         this.registryAddress = registryAddress;
     }
 
     /**
+     * Returns the port on which the remote registry accepts requests.
      * 
-     * @return 
+     * @return port on which the remote registry accepts requests
      */
     public int getRegistryPort() {
         return registryPort;
     }
 
     /**
+     * Package private setter for the remote registry port.
      * 
-     * @param registryPort 
+     * @param registryPort the port on which the remote registry will accept requests
      */
     void setRegistryPort(int registryPort) {
         this.registryPort = registryPort;

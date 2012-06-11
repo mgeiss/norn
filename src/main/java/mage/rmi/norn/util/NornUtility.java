@@ -30,6 +30,10 @@ import java.util.List;
 import mage.rmi.norn.NornNodeInfo;
 
 /**
+ * <code>NornUtility</code> provides some utility methodes like converting
+ * a <code>NornNodeInfo</code> to a byte array and vise versa.
+ * 
+ * Also it provide a methode to calculate the current JVM load.
  * 
  * @author Markus Geiss
  * @version 1.0
@@ -37,19 +41,16 @@ import mage.rmi.norn.NornNodeInfo;
 public class NornUtility {
     
     /**
-     * 
-     */
-    public static final String NORN_LOGGER = "norn.logger";
-    
-    /**
-     * 
+     * <code>MathContext</code> used to round load t 2 decimal places. 
      */
     private static final MathContext DECIMAL_ROUND_2 = new MathContext(2, RoundingMode.HALF_EVEN);
     
     /**
+     * <code>nodeInfo2ByteArray</code> converts a <code>NornNodeInfo</code> to
+     * a byte array so it can be streamed to the client.
      * 
-     * @param nodeInfo
-     * @return
+     * @param nodeInfo instance of a node information to stream
+     * @return a byte array
      * @throws IOException 
      */
     public static byte[] nodeInfo2ByteArray(NornNodeInfo nodeInfo) throws IOException {
@@ -69,9 +70,11 @@ public class NornUtility {
     }
 
     /**
+     * <code>byteArray2NodeInfo</code> converts a byte array to a 
+     * <code>NornNodeInfo</code>.
      * 
-     * @param data
-     * @return
+     * @param data byte array to convert
+     * @return an instance of <code>NornNodeInfo</code>
      * @throws IOException
      * @throws ClassNotFoundException 
      */

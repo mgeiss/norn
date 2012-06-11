@@ -15,7 +15,6 @@
  */
 package mage.rmi.norn;
 
-import mage.rmi.norn.util.NornUtility;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -26,6 +25,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import mage.rmi.norn.util.NornUtility;
 
 /**
  * <code>LocateNorn</code> is used to obtain a reference to a <code>NornNode</code>
@@ -72,7 +72,7 @@ public final class LocateNorn {
      * <p>Note that also a <code>Registry</code> instance  will be created and
      * exported on the local host that accepts requests on port 1099. 
      * 
-     * @param multicastAddress group for the udp multicast
+     * @param multicastAddress address for the multicast group
      * @return the norn node
      * @throws RemoteException 
      */
@@ -89,7 +89,7 @@ public final class LocateNorn {
      * <p>Note that also a <code>Registry</code> instance  will be created and
      * exported on the local host that accepts requests on port 1099. 
      * 
-     * @param multicastAddress host for the udp multicast
+     * @param multicastAddress address for the multicast group
      * @param multicastPort port on which the udp multicast accepts requests
      * @return the norn node
      * @throws RemoteException 
@@ -108,7 +108,7 @@ public final class LocateNorn {
      * exported on the local host that accepts requests on the specified
      * <code>regsitryPort</code>. 
      * 
-     * @param multicastAddress group for the multicast
+     * @param multicastAddress address for the multicast group
      * @param multicastPort port on which the multicast accepts requests
      * @param registryPort port on which the registry accepts requests 
      * @return the norn node
@@ -197,7 +197,7 @@ public final class LocateNorn {
      * <p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
-     * @param multicastAddress group for the multicast
+     * @param multicastAddress address for the multicast group
      * @return reference to the norn node
      * @throws RemoteException 
      */
@@ -213,7 +213,7 @@ public final class LocateNorn {
      * <p><p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
-     * @param multicastAddress group for the multicast
+     * @param multicastAddress address for the multicast group
      * @param multicastPort port on which the multicast accepts requests
      * @return reference to the norn node
      * @throws RemoteException 
@@ -231,7 +231,7 @@ public final class LocateNorn {
      * <p>Note that also a reference for the remote object <code>Registry</code>
      * will be created on the host and port specified by the <code>NornNode</code>. 
      * 
-     * @param multicastAddress group for the multicast
+     * @param multicastAddress address for the multicast group
      * @param multicastPort port on which the multicast accepts requests
      * @param socketTimeout the specified timeout in milliseconds
      * @return reference to the norn node

@@ -26,9 +26,13 @@ import java.util.logging.Logger;
 import mage.rmi.norn.util.NornUtility;
 
 /**
+ * <code>NornNodeThread</code> is the listening thread for incoming client
+ * requests. When a client touches this node, th node will send an
+ * answer containing informations about this node back to the client.
  * 
  * @author Markus Geiss
  * @version 1.0
+ * @see mage.rmi.norn.NornNodeInfo
  * @see java.lang.Thread
  */
 public class NornNodeThread extends Thread {
@@ -38,8 +42,9 @@ public class NornNodeThread extends Thread {
     private boolean listen = true;
     
     /**
+     * Package private constructor.
      * 
-     * @param nodeInfo 
+     * @param nodeInfo information of the node 
      */
     NornNodeThread(NornNodeInfo nodeInfo) {
         super();
@@ -47,7 +52,8 @@ public class NornNodeThread extends Thread {
     }
     
     /**
-     * 
+     * <code>run</code> start a listener on the multicast address and joins
+     * the group. It will acccept requests on the multicast port.
      */
     @Override
     public void run() {
@@ -74,7 +80,7 @@ public class NornNodeThread extends Thread {
             }
 
         } catch (IOException ioex) {
-            Logger.getLogger(NornUtility.NORN_LOGGER).log(Level.SEVERE, ioex.getMessage(), ioex);
+            Logger.getGlobal().log(Level.SEVERE, ioex.getMessage(), ioex);
         }
 
         if (this.multicastSocket != null && !this.multicastSocket.isClosed()) {
@@ -83,7 +89,7 @@ public class NornNodeThread extends Thread {
     }
 
     /**
-     * 
+     * <code>interrupt</code> will stop the listener and closes the socket.
      */
     @Override
     public void interrupt() {
@@ -95,10 +101,13 @@ public class NornNodeThread extends Thread {
     }
 
     /**
+     * <code>sendNodeInfo</code> sends the information about this node to the
+     * client.
      * 
-     * @param address
-     * @param port
-     * @throws IOException 
+     * @param address the address of the client
+     * @param port the port on which the client will accept requests
+     * @throws IOException
+     * @see mage.rmi.norn.NornNodeInfo
      */
     private void sendNodeInfo(InetAddress address, int port) throws IOException {
         this.nodeInfo.setLoad(NornUtility.calculateJVMLoad());
