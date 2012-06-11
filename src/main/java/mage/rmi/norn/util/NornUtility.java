@@ -80,14 +80,12 @@ public class NornUtility {
      */
     public static NornNodeInfo byteArray2NodeInfo(byte[] data) throws IOException, ClassNotFoundException {
         NornNodeInfo nodeInfo = null;
+        
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(data); 
+                ObjectInputStream ois = new ObjectInputStream(bais)) {
 
-        ByteArrayInputStream bais = new ByteArrayInputStream(data);
-        ObjectInputStream ois = new ObjectInputStream(bais);
-
-        nodeInfo = (NornNodeInfo) ois.readObject();
-
-        ois.close();
-        bais.close();
+            nodeInfo = (NornNodeInfo) ois.readObject();
+        }
 
         return nodeInfo;
     }
