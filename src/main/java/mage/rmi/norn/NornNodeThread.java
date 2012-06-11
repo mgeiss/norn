@@ -15,7 +15,6 @@
  */
 package mage.rmi.norn;
 
-import mage.rmi.norn.util.NornUtility;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -24,18 +23,32 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mage.rmi.norn.util.NornUtility;
 
+/**
+ * 
+ * @author Markus Geiss
+ * @version 1.0
+ * @see java.lang.Thread
+ */
 public class NornNodeThread extends Thread {
 
     private NornNodeInfo nodeInfo;
     private MulticastSocket multicastSocket;
     private boolean listen = true;
     
+    /**
+     * 
+     * @param nodeInfo 
+     */
     NornNodeThread(NornNodeInfo nodeInfo) {
         super();
         this.nodeInfo = nodeInfo;
     }
     
+    /**
+     * 
+     */
     @Override
     public void run() {
         try {
@@ -69,6 +82,9 @@ public class NornNodeThread extends Thread {
         }
     }
 
+    /**
+     * 
+     */
     @Override
     public void interrupt() {
         if (this.multicastSocket != null && !this.multicastSocket.isClosed()) {
@@ -78,6 +94,12 @@ public class NornNodeThread extends Thread {
         super.interrupt();
     }
 
+    /**
+     * 
+     * @param address
+     * @param port
+     * @throws IOException 
+     */
     private void sendNodeInfo(InetAddress address, int port) throws IOException {
         this.nodeInfo.setLoad(NornUtility.calculateJVMLoad());
 

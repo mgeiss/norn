@@ -17,6 +17,11 @@ package mage.rmi.norn;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Markus Geiss
+ * @version 1.0
+ */
 public class NornNodeInfo implements Serializable {
 
     private static final long serialVersionUID = -173857924623766009L;
@@ -27,46 +32,89 @@ public class NornNodeInfo implements Serializable {
     private int registryPort;
     private double load = -1.0D;
 
+    /**
+     * 
+     */
     NornNodeInfo() {
         super();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getLoad() {
         return load;
     }
 
+    /**
+     * 
+     * @param load 
+     */
     void setLoad(double load) {
         this.load = load;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getMulticastAddress() {
         return multicastAddress;
     }
 
+    /**
+     * 
+     * @param multicastAddress 
+     */
     void setMulticastAddress(String multicastAddress) {
         this.multicastAddress = multicastAddress;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getMulticastPort() {
         return multicastPort;
     }
 
+    /**
+     * 
+     * @param multicastPort 
+     */
     void setMulticastPort(int multicastPort) {
         this.multicastPort = multicastPort;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getRegistryAddress() {
         return registryAddress;
     }
 
+    /**
+     * 
+     * @param registryAddress 
+     */
     void setRegistryAddress(String registryAddress) {
         this.registryAddress = registryAddress;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getRegistryPort() {
         return registryPort;
     }
 
+    /**
+     * 
+     * @param registryPort 
+     */
     void setRegistryPort(int registryPort) {
         this.registryPort = registryPort;
     }

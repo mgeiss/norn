@@ -29,12 +29,29 @@ import java.util.Comparator;
 import java.util.List;
 import mage.rmi.norn.NornNodeInfo;
 
+/**
+ * 
+ * @author Markus Geiss
+ * @version 1.0
+ */
 public class NornUtility {
     
+    /**
+     * 
+     */
     public static final String NORN_LOGGER = "norn.logger";
     
+    /**
+     * 
+     */
     private static final MathContext DECIMAL_ROUND_2 = new MathContext(2, RoundingMode.HALF_EVEN);
     
+    /**
+     * 
+     * @param nodeInfo
+     * @return
+     * @throws IOException 
+     */
     public static byte[] nodeInfo2ByteArray(NornNodeInfo nodeInfo) throws IOException {
         byte[] data = null;
 
@@ -51,6 +68,13 @@ public class NornUtility {
         return data;
     }
 
+    /**
+     * 
+     * @param data
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public static NornNodeInfo byteArray2NodeInfo(byte[] data) throws IOException, ClassNotFoundException {
         NornNodeInfo nodeInfo = null;
 
@@ -65,6 +89,11 @@ public class NornUtility {
         return nodeInfo;
     }
 
+    /**
+     * 
+     * @param nodeInfos
+     * @return 
+     */
     public static NornNodeInfo getRecentNodeInfo(List<NornNodeInfo> nodeInfos) {
         NornNodeInfo nodeInfo = null;
 
@@ -94,6 +123,10 @@ public class NornUtility {
         return nodeInfo;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static double calculateJVMLoad() {
         double load = -1.0D;
                 
