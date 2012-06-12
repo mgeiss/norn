@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -91,9 +93,10 @@ public class NornUtility {
     }
 
     /**
+     * Returns the <code>NornNodeInfo</code> with the lowest load.
      * 
-     * @param nodeInfos
-     * @return 
+     * @param nodeInfos a list of <code>NornNodeInfo</code>
+     * @return the <code>NornNodeInfo</code> with the lowest load
      */
     public static NornNodeInfo getRecentNodeInfo(List<NornNodeInfo> nodeInfos) {
         NornNodeInfo nodeInfo = null;
@@ -125,6 +128,8 @@ public class NornUtility {
     }
 
     /**
+     * <code>calculateJVMLoad</code> uses a simple approach based on the
+     * load calculation used in liunx to determine the current JVM load.
      * 
      * @return 
      */
@@ -132,9 +137,17 @@ public class NornUtility {
         double load = -1.0D;
                 
         Runtime runtime = Runtime.getRuntime();
+
+        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        ThreadInfo[] allThreads = threadMXBean.dumpAllThreads(true, true);
+        int threads = 0;
+        for (ThreadInfo threadInfo : allThreads) {
+            if (threadInfo.getThreadState() == Thread.State.RUNNABLE) {
+                threads++;
+            }
+        }
         
         int processors = runtime.availableProcessors();
-        int threads = ManagementFactory.getThreadMXBean().getThreadCount();
         
         double processorUsage = (double)threads / (double)processors;
         
