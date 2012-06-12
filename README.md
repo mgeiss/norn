@@ -2,8 +2,8 @@ Norn
 ====
 UDP Multicast based java remoting using RMI under the hood.
 
-Introduction
-------------
+Summary
+-------
 In norse mythology the Norns are female beings who rule the destiny of gods and
 men. They spin the thread of fate at the foot of Yggdrasil, the tree of the
 world. For more information see [Wikipedia](http://en.wikipedia.org/wiki/Norns).
