@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package mage.rmi.norn;
+package com.github.mgeiss.norn;
 
 import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;

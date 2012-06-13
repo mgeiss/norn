@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mage.rmi.norn.util;
+package com.github.mgeiss.norn.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -29,7 +29,7 @@ import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import mage.rmi.norn.NornNodeInfo;
+import com.github.mgeiss.norn.NornNodeInfo;
 
 /**
  * <code>NornUtility</code> provides some utility methodes like converting

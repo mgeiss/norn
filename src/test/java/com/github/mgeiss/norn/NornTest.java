@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mge.rmi.norn;
+package com.github.mgeiss.norn;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import mage.rmi.norn.LocateNorn;
-import mage.rmi.norn.NornNode;
+import com.github.mgeiss.norn.LocateNorn;
+import com.github.mgeiss.norn.NornNode;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

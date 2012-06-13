@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mage.rmi.norn;
+package com.github.mgeiss.norn;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -23,7 +23,7 @@ import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import mage.rmi.norn.util.NornUtility;
+import com.github.mgeiss.norn.util.NornUtility;
 
 /**
  * <code>NornNodeThread</code> is the listening thread for incoming client

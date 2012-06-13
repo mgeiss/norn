@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mage.rmi.norn;
+package com.github.mgeiss.norn;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -25,7 +25,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import mage.rmi.norn.util.NornUtility;
+import com.github.mgeiss.norn.util.NornUtility;
 
 /**
  * <code>LocateNorn</code> is used to obtain a reference to a <code>NornNode</code>
