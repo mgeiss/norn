@@ -15,11 +15,8 @@
  */
 package com.github.mgeiss.norn.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.github.mgeiss.norn.NornNodeInfo;
+import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
@@ -29,13 +26,12 @@ import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import com.github.mgeiss.norn.NornNodeInfo;
 
 /**
- * <code>NornUtility</code> provides some utility methodes like converting
+ * <code>NornUtility</code> provides some utility methods like converting
  * a <code>NornNodeInfo</code> to a byte array and vise versa.
  * 
- * Also it provide a methode to calculate the current JVM load.
+ * Also it provide a method to calculate the current JVM load.
  * 
  * @author Markus Geiss
  * @version 1.0
@@ -129,9 +125,9 @@ public class NornUtility {
 
     /**
      * <code>calculateJVMLoad</code> uses a simple approach based on the
-     * load calculation used in liunx to determine the current JVM load.
+     * load calculation used by linux to determine the current JVM load.
      * 
-     * @return 
+     * @return the load for this JVM
      */
     public static double calculateJVMLoad() {
         double load = -1.0D;

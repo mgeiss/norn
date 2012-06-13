@@ -15,11 +15,7 @@
  */
 package com.github.mgeiss.norn;
 
-import java.rmi.AccessException;
-import java.rmi.AlreadyBoundException;
-import java.rmi.NotBoundException;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.rmi.*;
 import java.rmi.registry.Registry;
 
 /**
@@ -36,7 +32,7 @@ import java.rmi.registry.Registry;
  * <p>The names used for bindings in a <code>Registry</code> are pure strings,
  * not parsed. A service which stores its remote reference in a 
  * <code>NornNode</code> may wish to use a package name as a prefix in the name
- * binding to reduce the likelihood of namecollisions in the registry.
+ * binding to reduce the likelihood of name collisions in the registry.
  * 
  * <p>Note that <code>NornNode</code> uses a remote object registry to delegate
  * all remote object handling.

@@ -15,15 +15,11 @@
  */
 package com.github.mgeiss.norn;
 
+import com.github.mgeiss.norn.util.NornUtility;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketException;
+import java.net.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.github.mgeiss.norn.util.NornUtility;
 
 /**
  * <code>NornNodeThread</code> is the listening thread for incoming client
@@ -32,7 +28,7 @@ import com.github.mgeiss.norn.util.NornUtility;
  * 
  * @author Markus Geiss
  * @version 1.0
- * @see mage.rmi.norn.NornNodeInfo
+ * @see com.github.mgeiss.norn.NornNodeInfo
  * @see java.lang.Thread
  */
 public class NornNodeThread extends Thread {

@@ -35,7 +35,7 @@ public class NornNodeInfo implements Serializable {
     private double load = -1.0D;
 
     /**
-     * Trusted package private cosdtructor
+     * Trusted package private constructor
      */
     NornNodeInfo() {
         super();
@@ -78,7 +78,7 @@ public class NornNodeInfo implements Serializable {
     }
 
     /**
-     * Retunrs the port on which the multicast accepts requests.
+     * Returns the port on which the multicast accepts requests.
      * 
      * @return port on which the multicast accepts requests
      */

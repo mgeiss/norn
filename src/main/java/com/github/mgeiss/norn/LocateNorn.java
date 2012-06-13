@@ -15,17 +15,13 @@
  */
 package com.github.mgeiss.norn;
 
+import com.github.mgeiss.norn.util.NornUtility;
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import com.github.mgeiss.norn.util.NornUtility;
 
 /**
  * <code>LocateNorn</code> is used to obtain a reference to a <code>NornNode</code>
@@ -36,7 +32,7 @@ import com.github.mgeiss.norn.util.NornUtility;
  * 
  * @author Markus Geiss
  * @version 1.0
- * @see mage.rmi.norn.NornNode
+ * @see com.github.mgeiss.norn.NornNode
  */
 public final class LocateNorn {
     
