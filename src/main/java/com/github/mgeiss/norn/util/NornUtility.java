@@ -106,11 +106,20 @@ public class NornUtility {
 
                     double load1 = nodeInfo1.getLoad();
                     double load2 = nodeInfo2.getLoad();
-
-                    if (load1 < load2) {
+                    
+                    boolean master1 = nodeInfo1.isMaster();
+                    boolean master2 = nodeInfo2.isMaster();
+                    
+                    if (master1 && !master2) {
                         order = -1;
-                    } else if (load1 > load2) {
+                    } else if (!master1 && master2) {
                         order = 1;
+                    } else {
+                        if (load1 < load2) {
+                            order = -1;
+                        } else if (load1 > load2) {
+                            order = 1;
+                        }
                     }
 
                     return order;

@@ -26,13 +26,14 @@ import java.io.Serializable;
  */
 public class NornNodeInfo implements Serializable {
 
-    private static final long serialVersionUID = -173857924623766009L;
-    
+    private static final long serialVersionUID = 8112182598139555673L;
+
     private String multicastAddress;
     private int multicastPort;
     private String registryAddress;
     private int registryPort;
     private double load = -1.0D;
+    private boolean master;
 
     /**
      * Trusted package private constructor
@@ -131,6 +132,14 @@ public class NornNodeInfo implements Serializable {
         this.registryPort = registryPort;
     }
 
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
+    }
+    
     @Override
     public String toString() {
         return "NornNodeInfo{" + "multicastAddress=" + multicastAddress + ", multicastPort=" + multicastPort + ", registryAddress=" + registryAddress + ", registryPort=" + registryPort + ", load=" + load + '}';

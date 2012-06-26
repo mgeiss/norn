@@ -57,7 +57,23 @@ public final class LocateNorn {
      * @throws RemoteException
      */
     public static NornNode createNode() throws RemoteException {
-        return LocateNorn.createNode(NornNode.MULTICAST_ADDRESS, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT);
+        return LocateNorn.createNode(NornNode.MULTICAST_ADDRESS, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT, false);
+    }
+    
+    /**
+     * Creates and exports a <code>NornNode</code> instance on the local host
+     * that accepts requests on port 42000. This instance will join the 
+     * multicast group on 234.5.6.7.
+     * 
+     * <p>Note that also a <code>Registry</code> instance  will be created and
+     * exported on the local host that accepts requests on port 1099. 
+     * 
+     * @param master flags this node as a cluster master
+     * @return the norn node
+     * @throws RemoteException 
+     */
+    public static NornNode createNode(boolean master) throws RemoteException {
+        return LocateNorn.createNode(NornNode.MULTICAST_ADDRESS, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT, master);
     }
 
     /**
@@ -73,7 +89,7 @@ public final class LocateNorn {
      * @throws RemoteException 
      */
     public static NornNode createNode(String multicastAddress) throws RemoteException {
-        return LocateNorn.createNode(multicastAddress, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT);
+        return LocateNorn.createNode(multicastAddress, NornNode.MULTICAST_PORT, NornNode.REGISTRY_PORT, false);
     }
 
     /**
@@ -91,7 +107,7 @@ public final class LocateNorn {
      * @throws RemoteException 
      */
     public static NornNode createNode(String multicastAddress, int multicastPort) throws RemoteException {
-        return LocateNorn.createNode(multicastAddress, multicastPort, NornNode.REGISTRY_PORT);
+        return LocateNorn.createNode(multicastAddress, multicastPort, NornNode.REGISTRY_PORT, false);
     }
 
     /**
@@ -107,10 +123,11 @@ public final class LocateNorn {
      * @param multicastAddress address for the multicast group
      * @param multicastPort port on which the multicast accepts requests
      * @param registryPort port on which the registry accepts requests 
+     * @param master flags this node as a cluster master
      * @return the norn node
      * @throws RemoteException 
      */
-    public static NornNode createNode(String multicastAddress, int multicastPort, int registryPort) throws RemoteException {
+    public static NornNode createNode(String multicastAddress, int multicastPort, int registryPort, boolean master) throws RemoteException {
         NornNode node = null;
 
         if (System.getSecurityManager() == null) {
@@ -142,6 +159,7 @@ public final class LocateNorn {
 
         nodeInfo.setRegistryPort(registryPort);
         nodeInfo.setLoad(NornUtility.calculateJVMLoad());
+        nodeInfo.setMaster(master);
 
         Registry registry = LocateRegistry.createRegistry(registryPort);
 
