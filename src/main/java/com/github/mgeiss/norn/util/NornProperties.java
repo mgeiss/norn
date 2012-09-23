@@ -58,7 +58,7 @@ public class NornProperties {
 
         Properties properties = new Properties();
         try {
-            properties.load(NornProperties.class.getResourceAsStream("norn.properties"));
+            properties.load(NornProperties.class.getResourceAsStream("/norn.properties"));
         } catch (IOException ex) {
             Logger.getLogger(NornProperties.class.getName()).log(Level.SEVERE, "Could not load norn.properties!", ex);
         }
