@@ -19,57 +19,42 @@ import java.rmi.*;
 import java.rmi.registry.Registry;
 
 /**
- * <code>NornNode</code> is a reference to a node that provides methods for 
+ * <code>NornNode</code> is a reference to a node that provides methods for
  * storing and retrieving remote object references bound with arbitrary string
- * names. The <code>bind</code>, <code>unbind</code>, and <code>rebind</code>
- * methods are used to alter the name bindings in the registry, and the 
- * <code>lookup</code> and <code>list</code> methods are used to query the 
- * current name bindings.
- * 
+ * names. The
+ * <code>bind</code>,
+ * <code>unbind</code>, and
+ * <code>rebind</code> methods are used to alter the name bindings in the
+ * registry, and the
+ * <code>lookup</code> and
+ * <code>list</code> methods are used to query the current name bindings.
+ *
  * <code>start</code> is used to start the multicast listener thread and
  * <code>stop</code> will stop it.
- * 
- * <p>The names used for bindings in a <code>Registry</code> are pure strings,
- * not parsed. A service which stores its remote reference in a 
+ *
+ * <p>The names used for bindings in a
+ * <code>Registry</code> are pure strings, not parsed. A service which stores
+ * its remote reference in a
  * <code>NornNode</code> may wish to use a package name as a prefix in the name
  * binding to reduce the likelihood of name collisions in the registry.
- * 
- * <p>Note that <code>NornNode</code> uses a remote object registry to delegate
- * all remote object handling.
- * 
+ *
+ * <p>Note that
+ * <code>NornNode</code> uses a remote object registry to delegate all remote
+ * object handling.
+ *
  * @author Markus Geiss
  * @version 1.0
  * @see java.rmi.registry.Registry
  */
 public class NornNode {
 
-    /**
-     * Default address for multicast (234.5.6.7).
-     */
-    public static final String MULTICAST_ADDRESS = "234.5.6.7";
-    
-    /**
-     * Default port for multicast (42000).
-     */
-    public static final int MULTICAST_PORT = 42000;
-    
-    /**
-     * Default port for registry (1099).
-     */
-    public static final int REGISTRY_PORT = Registry.REGISTRY_PORT;
-    
-    /**
-     * Default timeout for multicast socket (5 seconds).
-     */
-    public static final int SOCKET_TIMEOUT = 5000;
-    
     private Registry registry;
     private NornNodeInfo nodeInfo;
     private NornNodeThread nodeThread;
 
     /**
      * Trusted package private constructor.
-     * 
+     *
      * @param nodeInfo node information for this node.
      * @param registry the remote object registry to be used.
      */
@@ -79,10 +64,11 @@ public class NornNode {
 
     /**
      * Trusted package private constructor.
-     * 
+     *
      * @param nodeInfo node information for this node.
      * @param registry the remote object registry to be used.
-     * @param nodeThread the multicast listener thread that accepts all requests.
+     * @param nodeThread the multicast listener thread that accepts all
+     * requests.
      */
     NornNode(NornNodeInfo nodeInfo, Registry registry, NornNodeThread nodeThread) {
         super();
@@ -92,53 +78,56 @@ public class NornNode {
     }
 
     /**
-     * Binds a remote reference to the specified <code>name</code> in this node.
-     * 
+     * Binds a remote reference to the specified
+     * <code>name</code> in this node.
+     *
      * @param name the name to associate with the remote reference
      * @param obj a reference to a remote object
      * @throws RemoteException
      * @throws AlreadyBoundException
-     * @throws AccessException 
+     * @throws AccessException
      */
     public void bind(String name, Remote obj) throws RemoteException, AlreadyBoundException, AccessException {
         this.registry.bind(name, obj);
     }
 
     /**
-     * Removes the binding for the specified <code>name</code> in this node.
-     * 
+     * Removes the binding for the specified
+     * <code>name</code> in this node.
+     *
      * @param name the name to associate with the remote reference
      * @throws RemoteException
      * @throws NotBoundException
-     * @throws AccessException 
+     * @throws AccessException
      */
     public void unbind(String name) throws RemoteException, NotBoundException, AccessException {
         this.registry.unbind(name);
     }
 
     /**
-     * Replaces the binding for the specified <code>name</code> in this node
-     * with the supplied remote reference. If there is an existing binding for 
-     * the specified <code>name</code>, it is discarded.
-     * 
+     * Replaces the binding for the specified
+     * <code>name</code> in this node with the supplied remote reference. If
+     * there is an existing binding for the specified
+     * <code>name</code>, it is discarded.
+     *
      * @param name the name to associate with the remote reference
      * @param obj a reference to a remote object
      * @throws RemoteException
-     * @throws AccessException 
+     * @throws AccessException
      */
     public void rebind(String name, Remote obj) throws RemoteException, AccessException {
         this.registry.rebind(name, obj);
     }
 
     /**
-     * Returns the remote reference bound to the specified <code>name</code> in 
-     * this node.
-     * 
+     * Returns the remote reference bound to the specified
+     * <code>name</code> in this node.
+     *
      * @param name the name to associate with the remote reference
      * @return a reference to a remote object
      * @throws RemoteException
      * @throws NotBoundException
-     * @throws AccessException 
+     * @throws AccessException
      */
     public Remote lookup(String name) throws RemoteException, NotBoundException, AccessException {
         return this.registry.lookup(name);
@@ -148,10 +137,10 @@ public class NornNode {
      * Returns an array of the names bound in this node. The array will contain
      * a snapshot of the names bound in this node at the time of the given
      * invocation of this method.
-     * 
+     *
      * @return an array of the names bound in this registry
      * @throws RemoteException
-     * @throws AccessException 
+     * @throws AccessException
      */
     public String[] list() throws RemoteException, AccessException {
         return this.registry.list();
@@ -161,8 +150,8 @@ public class NornNode {
      * Retunrs a reference to this nodes information containing the multicast
      * address, the mulitcast port, the regesitry address, the registry port and
      * the calculated JVM load.
-     * 
-     * @return a reference to this nodes information 
+     *
+     * @return a reference to this nodes information
      */
     public NornNodeInfo getNodeInfo() {
         return nodeInfo;

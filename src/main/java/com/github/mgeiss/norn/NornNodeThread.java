@@ -1,17 +1,17 @@
 /**
  * Copyright 2012 Markus Geiss
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.github.mgeiss.norn;
 
@@ -23,9 +23,9 @@ import java.util.logging.Logger;
 
 /**
  * <code>NornNodeThread</code> is the listening thread for incoming client
- * requests. When a client touches this node, th node will send an
- * answer containing informations about this node back to the client.
- * 
+ * requests. When a client touches this node, th node will send an answer
+ * containing informations about this node back to the client.
+ *
  * @author Markus Geiss
  * @version 1.0
  * @see com.github.mgeiss.norn.NornNodeInfo
@@ -36,20 +36,20 @@ public class NornNodeThread extends Thread {
     private NornNodeInfo nodeInfo;
     private MulticastSocket multicastSocket;
     private boolean listen = true;
-    
+
     /**
      * Package private constructor.
-     * 
-     * @param nodeInfo information of the node 
+     *
+     * @param nodeInfo information of the node
      */
     NornNodeThread(NornNodeInfo nodeInfo) {
         super();
         this.nodeInfo = nodeInfo;
     }
-    
+
     /**
-     * <code>run</code> start a listener on the multicast address and joins
-     * the group. It will acccept requests on the multicast port.
+     * <code>run</code> start a listener on the multicast address and joins the
+     * group. It will acccept requests on the multicast port.
      */
     @Override
     public void run() {
@@ -99,7 +99,7 @@ public class NornNodeThread extends Thread {
     /**
      * <code>sendNodeInfo</code> sends the information about this node to the
      * client.
-     * 
+     *
      * @param address the address of the client
      * @param port the port on which the client will accept requests
      * @throws IOException
