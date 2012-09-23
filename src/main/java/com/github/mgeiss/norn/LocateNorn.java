@@ -37,7 +37,6 @@ import java.util.ArrayList;
  */
 public final class LocateNorn {
 
-    private static NornNodeThread nornNodeThread;
     private static NornProperties nornProperties = NornProperties.load();
 
     /**
