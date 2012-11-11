@@ -18,7 +18,7 @@ Norn has been written by Markus Geiss (mgeiss257@gmail.com).
 
 Usage
 -----
-I provided a JUnit testcase, so you can see how simple it is to use norn.
+I've provided a JUnit testcase, so you can see how simple it is to use norn.
 
 License
 -------
