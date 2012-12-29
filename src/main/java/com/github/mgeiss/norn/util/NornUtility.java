@@ -53,7 +53,7 @@ public class NornUtility {
      * @throws IOException
      */
     public static byte[] nodeInfo2ByteArray(NornNodeInfo nodeInfo) throws IOException {
-        byte[] data = null;
+        byte[] data;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -73,13 +73,12 @@ public class NornUtility {
      * <code>NornNodeInfo</code>.
      *
      * @param data byte array to convert
-     * @return an instance of
-     * <code>NornNodeInfo</code>
+     * @return an instance of <code>NornNodeInfo</code>
      * @throws IOException
      * @throws ClassNotFoundException
      */
     public static NornNodeInfo byteArray2NodeInfo(byte[] data) throws IOException, ClassNotFoundException {
-        NornNodeInfo nodeInfo = null;
+        NornNodeInfo nodeInfo;
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(data);
                 ObjectInputStream ois = new ObjectInputStream(bais)) {
@@ -91,13 +90,10 @@ public class NornUtility {
     }
 
     /**
-     * Returns the
-     * <code>NornNodeInfo</code> with the lowest load.
+     * Returns the <code>NornNodeInfo</code> with the lowest load.
      *
-     * @param nodeInfos a list of
-     * <code>NornNodeInfo</code>
-     * @return the
-     * <code>NornNodeInfo</code> with the lowest load
+     * @param nodeInfos a list of <code>NornNodeInfo</code>
+     * @return the <code>NornNodeInfo</code> with the lowest load
      */
     public static NornNodeInfo getRecentNodeInfo(List<NornNodeInfo> nodeInfos) {
         NornNodeInfo nodeInfo = null;
@@ -144,7 +140,7 @@ public class NornUtility {
      * @return the load for this JVM
      */
     public static double calculateJVMLoad() {
-        double load = -1.0D;
+        double load;
 
         Runtime runtime = Runtime.getRuntime();
 

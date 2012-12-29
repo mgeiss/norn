@@ -22,8 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The
- * <code>NornProperties</code> class represents a persistent set of properties.
+ * The <code>NornProperties</code> class represents a persistent set of properties.
  *
  * @author Markus Geiss
  * @version 1.0
@@ -54,7 +53,7 @@ public class NornProperties {
      * @see java.util.Properties
      */
     public static NornProperties load() {
-        NornProperties nornProperties = null;
+        NornProperties nornProperties;
 
         Properties properties = new Properties();
         try {

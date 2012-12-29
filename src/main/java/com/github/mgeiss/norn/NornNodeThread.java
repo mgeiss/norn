@@ -23,8 +23,8 @@ import java.util.logging.Logger;
 
 /**
  * <code>NornNodeThread</code> is the listening thread for incoming client
- * requests. When a client touches this node, th node will send an answer
- * containing informations about this node back to the client.
+ * requests. When a client touches this node, the node will send an answer
+ * containing information about this node back to the client.
  *
  * @author Markus Geiss
  * @version 1.0
@@ -49,7 +49,7 @@ public class NornNodeThread extends Thread {
 
     /**
      * <code>run</code> start a listener on the multicast address and joins the
-     * group. It will acccept requests on the multicast port.
+     * group. It will accept requests on the multicast port.
      */
     @Override
     public void run() {
@@ -103,7 +103,7 @@ public class NornNodeThread extends Thread {
      * @param address the address of the client
      * @param port the port on which the client will accept requests
      * @throws IOException
-     * @see mage.rmi.norn.NornNodeInfo
+     * @see com.github.mgeiss.norn.NornNodeInfo
      */
     private void sendNodeInfo(InetAddress address, int port) throws IOException {
         this.nodeInfo.setLoad(NornUtility.calculateJVMLoad());
