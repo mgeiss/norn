@@ -18,12 +18,14 @@ package com.github.mgeiss.norn;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class DeepThoughtImpl implements DeepThought, Serializable {
+public class DeepThoughtImpl
+        implements DeepThought, Serializable {
 
     private static final long serialVersionUID = -825174703493558390L;
 
     @Override
-    public String answerToTheUltimateQuestion() throws RemoteException {
+    public String answerToTheUltimateQuestion()
+            throws RemoteException {
         return "42";
     }
 }

@@ -18,7 +18,9 @@ package com.github.mgeiss.norn;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface DeepThought extends Remote {
+public interface DeepThought
+        extends Remote {
 
-    public String answerToTheUltimateQuestion() throws RemoteException;
+    public String answerToTheUltimateQuestion()
+            throws RemoteException;
 }
