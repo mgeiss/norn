@@ -46,6 +46,20 @@ to a Node using a simple load algorhythm.</p>
 
 <p>I've provided a JUnit testcase, so you can see how simple it is to use norn.</p>
 
+<p>Since version 2.0.0 it is possible to configure a node programmatically.</p>
+
+<pr><code>
+  NornConfiguration nornConfiguration = new NornConfiguration.Builder()
+            .multicastAddress("225.6.7.8")
+            .multicastPort(43000)
+            .rmiRegistryPort(2345)
+            .socketTimeout(70)
+            .master()
+            .build();
+  
+  NornNode nornNode = LocateNorn.createNode(nornConfiguration);
+</code></pr>
+
 <h2>License</h2>
 
 <p>Copyright 2012 - 2013 Markus Geiss</p>
