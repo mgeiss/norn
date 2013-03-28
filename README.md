@@ -55,5 +55,5 @@ To use norn just add the follwing dependency to your local pom.xml:
     <dependency>
         <groupId>com.github.mgeiss</groupId>
         <artifactId>norn</artifactId>
-        <version>1.1.1</version>
+        <version>2.0.0</version>
     </dependency>
