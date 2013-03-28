@@ -15,7 +15,6 @@
  */
 package com.github.mgeiss.norn;
 
-import com.github.mgeiss.norn.util.NornConfiguration;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,16 +30,7 @@ public class NornTest {
 
     private static NornNode serverNornNode;
     private static DeepThought deepThought = new DeepThoughtImpl();
-    private static final StringBuilder TELEMETRY = new StringBuilder("TELEMETRY >>>\n");
-
-    private static final NornConfiguration nornConfiguration = new NornConfiguration.Builder()
-            .multicastAddress("225.6.7.8")
-            .multicastPort(43000)
-            .rmiRegistryPort(2345)
-            .socketTimeout(70)
-            .master()
-            .build();
-
+    private static final StringBuilder TELEMETRY = new StringBuilder("<<< TELEMETRY >>>\n");
 
     public NornTest() {
         super();
@@ -51,13 +41,15 @@ public class NornTest {
         System.setProperty("java.security.policy", "src/test/java/policy/norntest.policy");
         try {
             long time = System.currentTimeMillis();
-            NornTest.serverNornNode = LocateNorn.createNode(NornTest.nornConfiguration);
-            NornTest.TELEMETRY.append("Server node started in " + (System.currentTimeMillis() - time) + " ms!\n");
+            NornTest.serverNornNode = LocateNorn.createNode();
+            NornTest.TELEMETRY.append("Server node started in ")
+                    .append(System.currentTimeMillis() - time).append(" ms!\n");
 
             time = System.currentTimeMillis();
             NornTest.serverNornNode.rebind(DeepThought.class.getSimpleName(),
                     UnicastRemoteObject.exportObject(NornTest.deepThought, 0));
-            NornTest.TELEMETRY.append("Remote object bound in " + (System.currentTimeMillis() - time) + " ms!\n");
+            NornTest.TELEMETRY.append("Remote object bound in ")
+                    .append(System.currentTimeMillis() - time).append(" ms!\n");
         } catch (RemoteException rex) {
             fail("RemoteException: " + rex.getMessage());
         }
@@ -67,17 +59,18 @@ public class NornTest {
     public void shouldLookupDeepThoughtAndAnswerTheUltimateQuestion() {
         try {
             long time = System.currentTimeMillis();
-            final NornNode nornNode = LocateNorn.getNode(NornTest.nornConfiguration);
-            NornTest.TELEMETRY.append("Node located in " + (System.currentTimeMillis() - time) + " ms!\n");
+            final NornNode nornNode = LocateNorn.getNode(100);
+            NornTest.TELEMETRY.append("Node located in ").append(System.currentTimeMillis() - time).append(" ms!\n");
 
             time = System.currentTimeMillis();
             final DeepThought deepThoughtRef = (DeepThought) nornNode.lookup(DeepThought.class.getSimpleName());
-            NornTest.TELEMETRY.append("Remote object looked up in " + (System.currentTimeMillis() - time) + " ms!\n");
+            NornTest.TELEMETRY.append("Remote object looked up in ")
+                    .append(System.currentTimeMillis() - time).append(" ms!\n");
 
             time = System.currentTimeMillis();
             final String answer = deepThoughtRef.answerToTheUltimateQuestion();
-            NornTest.TELEMETRY.append("Answer to the ultimate question received in "
-                    + (System.currentTimeMillis() - time) + " ms!\n");
+            NornTest.TELEMETRY.append("Answer to the ultimate question received in ")
+                    .append(System.currentTimeMillis() - time).append(" ms!\n");
 
             assertEquals("42", answer);
         } catch (NotBoundException nbex) {
@@ -92,9 +85,10 @@ public class NornTest {
         if (NornTest.serverNornNode != null) {
             long time = System.currentTimeMillis();
             NornTest.serverNornNode.stop();
-            NornTest.TELEMETRY.append("Server node stopped in " + (System.currentTimeMillis() - time) + " ms!\n");
+            NornTest.TELEMETRY.append("Server node stopped in ")
+                    .append(System.currentTimeMillis() - time).append(" ms!\n");
         }
-        NornTest.TELEMETRY.append("<<< TELEMETRY\n");
+        NornTest.TELEMETRY.append("<<< TELEMETRY >>>\n");
         System.out.println(NornTest.TELEMETRY);
     }
 }
