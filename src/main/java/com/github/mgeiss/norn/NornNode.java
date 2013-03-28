@@ -19,38 +19,28 @@ import java.rmi.*;
 import java.rmi.registry.Registry;
 
 /**
- * <code>NornNode</code> is a reference to a node that provides methods for
- * storing and retrieving remote object references bound with arbitrary string
- * names. The
- * <code>bind</code>,
- * <code>unbind</code>, and
- * <code>rebind</code> methods are used to alter the name bindings in the
- * registry, and the
- * <code>lookup</code> and
- * <code>list</code> methods are used to query the current name bindings.
- *
- * <code>start</code> is used to start the multicast listener thread and
- * <code>stop</code> will stop it.
- *
- * <p>The names used for bindings in a
- * <code>Registry</code> are pure strings, not parsed. A service which stores
- * its remote reference in a
- * <code>NornNode</code> may wish to use a package name as a prefix in the name
+ * <code>NornNode</code> is a reference to a node that provides methods for storing and retrieving remote object
+ * references bound with arbitrary string names. The <code>bind</code>, <code>unbind</code>, and <code>rebind</code>
+ * methods are used to alter the name bindings in the registry, and the <code>lookup</code> and <code>list</code>
+ * methods are used to query the current name bindings.
+ * <p/>
+ * <code>start</code> is used to start the multicast listener thread and <code>stop</code> will stop it.
+ * <p/>
+ * <p>The names used for bindings in a <code>Registry</code> are pure strings, not parsed. A service which stores
+ * its remote reference in a <code>NornNode</code> may wish to use a package name as a prefix in the name
  * binding to reduce the likelihood of name collisions in the registry.
- *
- * <p>Note that
- * <code>NornNode</code> uses a remote object registry to delegate all remote
- * object handling.
+ * <p/>
+ * <p>Note that <code>NornNode</code> uses a remote object registry to delegate all remote object handling.
  *
  * @author Markus Geiss
- * @version 1.0
+ * @version 1.0.0
  * @see java.rmi.registry.Registry
  */
-public class NornNode {
+public final class NornNode {
 
-    private Registry registry;
-    private NornNodeInfo nodeInfo;
-    private NornNodeThread nodeThread;
+    private final Registry registry;
+    private final NornNodeInfo nodeInfo;
+    private final NornNodeThread nodeThread;
 
     /**
      * Trusted package private constructor.
@@ -58,19 +48,19 @@ public class NornNode {
      * @param nodeInfo node information for this node.
      * @param registry the remote object registry to be used.
      */
-    NornNode(NornNodeInfo nodeInfo, Registry registry) {
+    NornNode(final NornNodeInfo nodeInfo, final Registry registry) {
         this(nodeInfo, registry, null);
     }
 
     /**
      * Trusted package private constructor.
      *
-     * @param nodeInfo node information for this node.
-     * @param registry the remote object registry to be used.
+     * @param nodeInfo   node information for this node.
+     * @param registry   the remote object registry to be used.
      * @param nodeThread the multicast listener thread that accepts all
-     * requests.
+     *                   requests.
      */
-    NornNode(NornNodeInfo nodeInfo, Registry registry, NornNodeThread nodeThread) {
+    NornNode(final NornNodeInfo nodeInfo, final Registry registry, final NornNodeThread nodeThread) {
         super();
         this.nodeInfo = nodeInfo;
         this.registry = registry;
@@ -82,12 +72,13 @@ public class NornNode {
      * <code>name</code> in this node.
      *
      * @param name the name to associate with the remote reference
-     * @param obj a reference to a remote object
-     * @throws RemoteException
-     * @throws AlreadyBoundException
-     * @throws AccessException
+     * @param obj  a reference to a remote object
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.AlreadyBoundException
+     * @throws java.rmi.AccessException
      */
-    public void bind(String name, Remote obj) throws RemoteException, AlreadyBoundException, AccessException {
+    public void bind(final String name, final Remote obj)
+            throws RemoteException, AlreadyBoundException, AccessException {
         this.registry.bind(name, obj);
     }
 
@@ -96,11 +87,12 @@ public class NornNode {
      * <code>name</code> in this node.
      *
      * @param name the name to associate with the remote reference
-     * @throws RemoteException
-     * @throws NotBoundException
-     * @throws AccessException
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.NotBoundException
+     * @throws java.rmi.AccessException
      */
-    public void unbind(String name) throws RemoteException, NotBoundException, AccessException {
+    public void unbind(final String name)
+            throws RemoteException, NotBoundException, AccessException {
         this.registry.unbind(name);
     }
 
@@ -111,11 +103,12 @@ public class NornNode {
      * <code>name</code>, it is discarded.
      *
      * @param name the name to associate with the remote reference
-     * @param obj a reference to a remote object
-     * @throws RemoteException
-     * @throws AccessException
+     * @param obj  a reference to a remote object
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.AccessException
      */
-    public void rebind(String name, Remote obj) throws RemoteException, AccessException {
+    public void rebind(final String name, final Remote obj)
+            throws RemoteException, AccessException {
         this.registry.rebind(name, obj);
     }
 
@@ -125,11 +118,12 @@ public class NornNode {
      *
      * @param name the name to associate with the remote reference
      * @return a reference to a remote object
-     * @throws RemoteException
-     * @throws NotBoundException
-     * @throws AccessException
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.NotBoundException
+     * @throws java.rmi.AccessException
      */
-    public Remote lookup(String name) throws RemoteException, NotBoundException, AccessException {
+    public Remote lookup(final String name)
+            throws RemoteException, NotBoundException, AccessException {
         return this.registry.lookup(name);
     }
 
@@ -139,10 +133,11 @@ public class NornNode {
      * invocation of this method.
      *
      * @return an array of the names bound in this registry
-     * @throws RemoteException
-     * @throws AccessException
+     * @throws java.rmi.RemoteException
+     * @throws java.rmi.AccessException
      */
-    public String[] list() throws RemoteException, AccessException {
+    public String[] list()
+            throws RemoteException, AccessException {
         return this.registry.list();
     }
 

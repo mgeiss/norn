@@ -16,6 +16,7 @@
 package com.github.mgeiss.norn;
 
 import com.github.mgeiss.norn.util.NornUtility;
+
 import java.io.IOException;
 import java.net.*;
 import java.util.logging.Level;
@@ -27,13 +28,14 @@ import java.util.logging.Logger;
  * containing information about this node back to the client.
  *
  * @author Markus Geiss
- * @version 1.0
+ * @version 1.0.0
  * @see com.github.mgeiss.norn.NornNodeInfo
  * @see java.lang.Thread
  */
-public class NornNodeThread extends Thread {
+public final class NornNodeThread
+        extends Thread {
 
-    private NornNodeInfo nodeInfo;
+    private final NornNodeInfo nodeInfo;
     private MulticastSocket multicastSocket;
     private boolean listen = true;
 
@@ -48,33 +50,32 @@ public class NornNodeThread extends Thread {
     }
 
     /**
-     * <code>run</code> start a listener on the multicast address and joins the
+     * <code>run</code> starts a listener on the multicast address and joins the
      * group. It will accept requests on the multicast port.
      */
     @Override
     public void run() {
         try {
-            InetAddress multicastAddress = InetAddress.getByName(this.nodeInfo.getMulticastAddress());
+            final InetAddress multicastAddress = InetAddress.getByName(this.nodeInfo.getMulticastAddress());
 
             this.multicastSocket = new MulticastSocket(this.nodeInfo.getMulticastPort());
             this.multicastSocket.joinGroup(multicastAddress);
 
-            byte[] messageBuffer = new byte[1024];
-            DatagramPacket message = new DatagramPacket(messageBuffer, messageBuffer.length);
+            final byte[] messageBuffer = new byte[1024];
+            final DatagramPacket message = new DatagramPacket(messageBuffer, messageBuffer.length);
 
             while (this.listen) {
                 try {
                     this.multicastSocket.receive(message);
+                    final InetAddress address = message.getAddress();
+                    final int port = message.getPort();
+
+                    this.sendNodeInfo(address, port);
                 } catch (SocketException sex) {
-                    // do nothing, somebody stoped this thread
+                    // somebody stopped this thread
+                    break;
                 }
-
-                InetAddress address = message.getAddress();
-                int port = message.getPort();
-
-                this.sendNodeInfo(address, port);
             }
-
         } catch (IOException ioex) {
             Logger.getGlobal().log(Level.SEVERE, ioex.getMessage(), ioex);
         }
@@ -89,29 +90,29 @@ public class NornNodeThread extends Thread {
      */
     @Override
     public void interrupt() {
+        this.listen = false;
         if (this.multicastSocket != null && !this.multicastSocket.isClosed()) {
             this.multicastSocket.close();
         }
-        this.listen = false;
         super.interrupt();
     }
 
     /**
-     * <code>sendNodeInfo</code> sends the information about this node to the
-     * client.
+     * <code>sendNodeInfo</code> sends the information about this node to the client.
      *
      * @param address the address of the client
-     * @param port the port on which the client will accept requests
-     * @throws IOException
+     * @param port    the port on which the client will accept requests
+     * @throws java.io.IOException
      * @see com.github.mgeiss.norn.NornNodeInfo
      */
-    private void sendNodeInfo(InetAddress address, int port) throws IOException {
+    private void sendNodeInfo(final InetAddress address, final int port)
+            throws IOException {
         this.nodeInfo.setLoad(NornUtility.calculateJVMLoad());
 
-        byte[] messageBuffer = NornUtility.nodeInfo2ByteArray(nodeInfo);
+        final byte[] messageBuffer = NornUtility.nodeInfo2ByteArray(nodeInfo);
 
-        DatagramPacket message = new DatagramPacket(messageBuffer, messageBuffer.length, address, port);
-        try (DatagramSocket datagrammSocket = new DatagramSocket()) {
+        final DatagramPacket message = new DatagramPacket(messageBuffer, messageBuffer.length, address, port);
+        try (final DatagramSocket datagrammSocket = new DatagramSocket()) {
             datagrammSocket.send(message);
             datagrammSocket.close();
         }

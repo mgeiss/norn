@@ -22,9 +22,10 @@ import java.io.Serializable;
  * includes information about the registry address, registry port and the load.
  *
  * @author Markus Geiss
- * @version 1.0
+ * @version 1.1.0
  */
-public class NornNodeInfo implements Serializable {
+public final class NornNodeInfo
+        implements Serializable {
 
     private static final long serialVersionUID = 8112182598139555673L;
     private String multicastAddress;
@@ -53,9 +54,9 @@ public class NornNodeInfo implements Serializable {
     /**
      * Package private setter for the load of the remote host.
      *
-     * @param load
+     * @param load current load of this node
      */
-    void setLoad(double load) {
+    void setLoad(final double load) {
         this.load = load;
     }
 
@@ -73,7 +74,7 @@ public class NornNodeInfo implements Serializable {
      *
      * @param multicastAddress address of the multicast group
      */
-    void setMulticastAddress(String multicastAddress) {
+    void setMulticastAddress(final String multicastAddress) {
         this.multicastAddress = multicastAddress;
     }
 
@@ -91,7 +92,7 @@ public class NornNodeInfo implements Serializable {
      *
      * @param multicastPort port on which the multicast will accept requests
      */
-    void setMulticastPort(int multicastPort) {
+    void setMulticastPort(final int multicastPort) {
         this.multicastPort = multicastPort;
     }
 
@@ -109,7 +110,7 @@ public class NornNodeInfo implements Serializable {
      *
      * @param registryAddress address of the remote registry
      */
-    void setRegistryAddress(String registryAddress) {
+    void setRegistryAddress(final String registryAddress) {
         this.registryAddress = registryAddress;
     }
 
@@ -126,9 +127,9 @@ public class NornNodeInfo implements Serializable {
      * Package private setter for the remote registry port.
      *
      * @param registryPort the port on which the remote registry will accept
-     * requests
+     *                     requests
      */
-    void setRegistryPort(int registryPort) {
+    void setRegistryPort(final int registryPort) {
         this.registryPort = registryPort;
     }
 
@@ -136,12 +137,19 @@ public class NornNodeInfo implements Serializable {
         return master;
     }
 
-    public void setMaster(boolean master) {
+    public void setMaster(final boolean master) {
         this.master = master;
     }
 
     @Override
     public String toString() {
-        return "NornNodeInfo{" + "multicastAddress=" + multicastAddress + ", multicastPort=" + multicastPort + ", registryAddress=" + registryAddress + ", registryPort=" + registryPort + ", load=" + load + '}';
+        return "NornNodeInfo{"
+                + "multicastAddress=" + this.multicastAddress
+                + ", multicastPort=" + this.multicastPort
+                + ", registryAddress=" + this.registryAddress
+                + ", registryPort="+ this.registryPort
+                + ", load=" + this.load
+                + ", master="+ this.master
+                + '}';
     }
 }

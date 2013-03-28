@@ -16,6 +16,7 @@
 package com.github.mgeiss.norn.util;
 
 import com.github.mgeiss.norn.NornNodeInfo;
+
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -26,15 +27,16 @@ import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * <code>NornUtility</code> provides some utility methods like converting a
  * <code>NornNodeInfo</code> to a byte array and vise versa.
- *
+ * <p/>
  * Also it provide a method to calculate the current JVM load.
  *
  * @author Markus Geiss
- * @version 1.0
+ * @version 1.1.0
  */
 public class NornUtility {
 
@@ -44,44 +46,40 @@ public class NornUtility {
     private static final MathContext DECIMAL_ROUND_2 = new MathContext(2, RoundingMode.HALF_EVEN);
 
     /**
-     * <code>nodeInfo2ByteArray</code> converts a
-     * <code>NornNodeInfo</code> to a byte array so it can be streamed to the
+     * <code>nodeInfo2ByteArray</code> converts a <code>NornNodeInfo</code> to a byte array so it can be streamed to the
      * client.
      *
      * @param nodeInfo instance of a node information to stream
      * @return a byte array
      * @throws IOException
      */
-    public static byte[] nodeInfo2ByteArray(NornNodeInfo nodeInfo) throws IOException {
-        byte[] data;
+    public static byte[] nodeInfo2ByteArray(final NornNodeInfo nodeInfo)
+            throws IOException {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        final ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(nodeInfo);
         oos.flush();
         oos.close();
 
         baos.close();
-        data = baos.toByteArray();
-
-        return data;
+        return baos.toByteArray();
     }
 
     /**
-     * <code>byteArray2NodeInfo</code> converts a byte array to a
-     * <code>NornNodeInfo</code>.
+     * <code>byteArray2NodeInfo</code> converts a byte array to a <code>NornNodeInfo</code>.
      *
      * @param data byte array to convert
      * @return an instance of <code>NornNodeInfo</code>
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public static NornNodeInfo byteArray2NodeInfo(byte[] data) throws IOException, ClassNotFoundException {
+    public static NornNodeInfo byteArray2NodeInfo(final byte[] data)
+            throws IOException, ClassNotFoundException {
         NornNodeInfo nodeInfo;
 
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(data);
-                ObjectInputStream ois = new ObjectInputStream(bais)) {
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(data);
+             final ObjectInputStream ois = new ObjectInputStream(bais)) {
 
             nodeInfo = (NornNodeInfo) ois.readObject();
         }
@@ -95,7 +93,7 @@ public class NornUtility {
      * @param nodeInfos a list of <code>NornNodeInfo</code>
      * @return the <code>NornNodeInfo</code> with the lowest load
      */
-    public static NornNodeInfo getRecentNodeInfo(List<NornNodeInfo> nodeInfos) {
+    public static NornNodeInfo getRecentNodeInfo(final List<NornNodeInfo> nodeInfos) {
         NornNodeInfo nodeInfo = null;
 
         if (nodeInfos != null && nodeInfos.size() > 0) {
@@ -105,11 +103,11 @@ public class NornUtility {
                 public int compare(NornNodeInfo nodeInfo1, NornNodeInfo nodeInfo2) {
                     int order = 0;
 
-                    double load1 = nodeInfo1.getLoad();
-                    double load2 = nodeInfo2.getLoad();
+                    final double load1 = nodeInfo1.getLoad();
+                    final double load2 = nodeInfo2.getLoad();
 
-                    boolean master1 = nodeInfo1.isMaster();
-                    boolean master2 = nodeInfo2.isMaster();
+                    final boolean master1 = nodeInfo1.isMaster();
+                    final boolean master2 = nodeInfo2.isMaster();
 
                     if (master1 && !master2) {
                         order = -1;
@@ -134,39 +132,70 @@ public class NornUtility {
     }
 
     /**
-     * <code>calculateJVMLoad</code> uses a simple approach based on the load
-     * calculation used by linux to determine the current JVM load.
+     * <code>calculateJVMLoad</code> uses a simple approach based on the load calculation used by linux to determine
+     * the current JVM load.
      *
      * @return the load for this JVM
      */
     public static double calculateJVMLoad() {
         double load;
 
-        Runtime runtime = Runtime.getRuntime();
+        final Runtime runtime = Runtime.getRuntime();
 
-        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-        ThreadInfo[] allThreads = threadMXBean.dumpAllThreads(true, true);
+        final ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+        final ThreadInfo[] allThreads = threadMXBean.dumpAllThreads(true, true);
         int threads = 0;
-        for (ThreadInfo threadInfo : allThreads) {
+        for (final ThreadInfo threadInfo : allThreads) {
             if (threadInfo.getThreadState() == Thread.State.RUNNABLE) {
                 threads++;
             }
         }
 
-        int processors = runtime.availableProcessors();
+        final int processors = runtime.availableProcessors();
 
-        double processorUsage = (double) threads / (double) processors;
+        final double processorUsage = (double) threads / (double) processors;
 
-        long maxMemory = runtime.maxMemory();
-        long totalMemory = runtime.totalMemory();
+        final long maxMemory = runtime.maxMemory();
+        final long totalMemory = runtime.totalMemory();
 
-        double memoryUsage = (double) totalMemory / (double) maxMemory;
+        final double memoryUsage = (double) totalMemory / (double) maxMemory;
 
         load = (memoryUsage * 3.0D) + processorUsage;
 
-        BigDecimal bigDecimal = new BigDecimal(load);
+        final BigDecimal bigDecimal = new BigDecimal(load);
         load = bigDecimal.round(NornUtility.DECIMAL_ROUND_2).doubleValue();
 
         return load;
+    }
+
+    /**
+     * <code>isValidMulticastAddress</code> uses a simple test algorithm to check if the given string contains a
+     * valid multicast address.
+     * <p/>
+     * <p>This means the given string must contain an IP address between 224.0.0.0  and 239.255.255.255.
+     *
+     * @param multicastAddress multicast address to validate
+     * @return true if the string is a valid multicast address, else false
+     */
+    public static boolean isValidMulticastAddress(String multicastAddress) {
+        final StringTokenizer tokenizer = new StringTokenizer(multicastAddress, ".");
+        if (tokenizer.countTokens() != 4) {
+            return false;
+        }
+
+        final int firstOctet = Integer.valueOf(tokenizer.nextToken());
+        if (firstOctet < 224 || firstOctet > 239) {
+            return false;
+        }
+
+        int nextOctet;
+        while (tokenizer.hasMoreTokens()) {
+            nextOctet = Integer.valueOf(tokenizer.nextToken());
+            if (nextOctet < 0 || nextOctet > 255) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

@@ -25,18 +25,21 @@ import java.util.logging.Logger;
  * The <code>NornProperties</code> class represents a persistent set of properties.
  *
  * @author Markus Geiss
- * @version 1.0
+ * @version 2.0.0
  */
-public class NornProperties {
+public final class NornProperties {
 
     private static final String MULTICAST_ADDRESS_PROPERTY = "com.github.mgeiss.norn.multicast.address";
     private static final String MULTICAST_PORT_PROPERTY = "com.github.mgeiss.norn.multicast.port";
     private static final String SOCKET_TIMEOUT_PROPERTY = "com.github.mgeiss.norn.multicast.timeout";
     private static final String RMI_REGISTRY_PORT_PROPERTY = "com.github.mgeiss.norn.rmi.registry.port";
+    private static final String MASTER_NODE_PROPERTY = "com.github.mgeiss.norn.node.master";
+
     private String multicastAddress;
     private int multicastPort = -1;
     private int socketTimeout = -1;
     private int rmiRegistryPort = -1;
+    private boolean masterNode;
 
     private NornProperties() {
         super();
@@ -53,98 +56,117 @@ public class NornProperties {
      * @see java.util.Properties
      */
     public static NornProperties load() {
-        NornProperties nornProperties;
-
-        Properties properties = new Properties();
+        final Properties properties = new Properties();
         try {
             properties.load(NornProperties.class.getResourceAsStream("/norn.properties"));
         } catch (IOException ex) {
             Logger.getLogger(NornProperties.class.getName()).log(Level.SEVERE, "Could not load norn.properties!", ex);
         }
 
-        nornProperties = new NornProperties();
+        final NornProperties nornProperties = new NornProperties();
         nornProperties.setMulticastAddress(properties.getProperty(NornProperties.MULTICAST_ADDRESS_PROPERTY));
         nornProperties.setMulticastPort(Integer.valueOf(properties.getProperty(NornProperties.MULTICAST_PORT_PROPERTY)));
         nornProperties.setSocketTimeout(Integer.valueOf(properties.getProperty(NornProperties.SOCKET_TIMEOUT_PROPERTY)));
         nornProperties.setRmiRegistryPort(Integer.valueOf(properties.getProperty(NornProperties.RMI_REGISTRY_PORT_PROPERTY)));
+        nornProperties.setMaster(Boolean.valueOf(properties.getProperty(NornProperties.MASTER_NODE_PROPERTY)));
 
         return nornProperties;
     }
 
     /**
      * Returns the multicast address.
-     * 
+     *
      * @return the host name or IP address or <tt>null</tt>
      */
     public String getMulticastAddress() {
         return this.multicastAddress;
     }
 
-    private void setMulticastAddress(String multicastAddress) {
+    private void setMulticastAddress(final String multicastAddress) {
         this.multicastAddress = multicastAddress;
     }
 
     /**
      * Returns the multicast port.
-     * 
+     *
      * @return a valid port number or -1
      */
     public int getMulticastPort() {
         return this.multicastPort;
     }
 
-    private void setMulticastPort(int multicastPort) {
+    private void setMulticastPort(final int multicastPort) {
         this.multicastPort = multicastPort;
     }
 
     /**
      * Returns the RMI registry port.
-     * 
-     * @return a valid port number or -1 
+     *
+     * @return a valid port number or -1
      */
     public int getRmiRegistryPort() {
         return this.rmiRegistryPort;
     }
 
-    private void setRmiRegistryPort(int rmiRegistryPort) {
+    private void setRmiRegistryPort(final int rmiRegistryPort) {
         this.rmiRegistryPort = rmiRegistryPort;
     }
 
     /**
      * Returns the socket timeout.
-     * 
-     * @return a valid timeout or 0 
+     *
+     * @return a valid timeout or 0
      */
     public int getSocketTimeout() {
         return this.socketTimeout;
     }
 
-    private void setSocketTimeout(int socketTimeout) {
+    private void setSocketTimeout(final int socketTimeout) {
         this.socketTimeout = socketTimeout;
     }
 
+    /**
+     * Returns the master flag.
+     *
+     * @return true if this node is the master node
+     */
+    public boolean isMasterNode() {
+        return this.masterNode;
+    }
+
+    private void setMaster(final boolean masterNode) {
+        this.masterNode = masterNode;
+    }
+
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != other.getClass()) {
             return false;
         }
-        final NornProperties other = (NornProperties) obj;
-        if (!Objects.equals(this.multicastAddress, other.multicastAddress)) {
+
+        final NornProperties that = (NornProperties) other;
+
+        if (!Objects.equals(this.multicastAddress, that.multicastAddress)) {
             return false;
         }
-        if (this.multicastPort != other.multicastPort) {
+        if (this.multicastPort != that.multicastPort) {
             return false;
         }
-        if (this.socketTimeout != other.socketTimeout) {
+        if (this.socketTimeout != that.socketTimeout) {
             return false;
         }
-        if (this.rmiRegistryPort != other.rmiRegistryPort) {
+        if (this.rmiRegistryPort != that.rmiRegistryPort) {
             return false;
         }
-        return true;
+
+        return this.masterNode == that.masterNode;
     }
 
     @Override
@@ -154,6 +176,7 @@ public class NornProperties {
         hash = 41 * hash + this.multicastPort;
         hash = 41 * hash + this.socketTimeout;
         hash = 41 * hash + this.rmiRegistryPort;
+        hash = 41 * hash + (this.masterNode ? 1 : 0);
         return hash;
     }
 }
