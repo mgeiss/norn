@@ -20,9 +20,21 @@ Usage
 -----
 I've provided a JUnit testcase, so you can see how simple it is to use norn.
 
+Since version 2.0.0 it is possible to configure a node programmatically.
+
+    NornConfiguration nornConfiguration = new NornConfiguration.Builder()
+            .multicastAddress("225.6.7.8")
+            .multicastPort(43000)
+            .rmiRegistryPort(2345)
+            .socketTimeout(70)
+            .master()
+            .build();
+    
+    NornNode nornNode = LocateNorn.createNode(nornConfiguration);
+
 License
 -------
-Copyright 2012 Markus Geiss
+Copyright 2012 - 2013 Markus Geiss
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
