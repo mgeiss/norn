@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
  */
 public class NornConditionsTest {
 
-    private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
+    private static final ResourceBundle messages = ResourceBundle.getBundle("norn-messages");
 
     public NornConditionsTest() {
         super();

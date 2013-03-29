@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
  */
 public final class NornConditions {
 
-    private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
+    private static final ResourceBundle messages = ResourceBundle.getBundle("norn-messages");
 
     /**
      * Sole constructor.
@@ -105,14 +105,15 @@ public final class NornConditions {
     }
 
     /**
-     * Ensures that <code>socketTimeout</code> consists of a valid number in the range from 0 to 2147483647.
+     * Ensures that <code>socketTimeout</code> consists of a valid number in the range from 30 (30 ms) to 300000
+     * (5 min).
      *
      * @param socketTimeout a socket timeout
      * @throws java.lang.IllegalArgumentException if <code>socketTimeout</code> does not consists of a number within
      * the expected range
      */
     public static void checkSocketTimeout(int socketTimeout) {
-        if (socketTimeout < 0 || socketTimeout > Integer.MAX_VALUE) {
+        if (socketTimeout < 30 || socketTimeout > 300000) {
             throw new IllegalArgumentException(messages.getString("message.illegal.argument.socket.timeout"));
         }
     }
