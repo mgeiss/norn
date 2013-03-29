@@ -23,7 +23,7 @@ import java.util.StringTokenizer;
  * correct arguments.
  * <p/>
  * @author Markus Geiss
- * @version 2.1.0
+ * @version 2.1.1
  */
 public final class NornConditions {
 

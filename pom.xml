@@ -10,7 +10,7 @@
 
     <groupId>com.github.mgeiss</groupId>
     <artifactId>norn</artifactId>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
     <packaging>jar</packaging>
 
     <name>norn</name>
