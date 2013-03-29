@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Markus Geiss
+ * Copyright 2012 - 2013 Markus Geiss
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,6 +15,7 @@
  */
 package com.github.mgeiss.norn;
 
+import com.github.mgeiss.norn.util.NornConditions;
 import com.github.mgeiss.norn.util.NornConfiguration;
 import com.github.mgeiss.norn.util.NornProperties;
 import com.github.mgeiss.norn.util.NornUtility;
@@ -169,24 +170,14 @@ public final class LocateNorn {
     public static NornNode createNode(final String multicastAddress, final int multicastPort, final int registryPort,
                                       final boolean master)
             throws RemoteException {
-        NornNode node = null;
+        NornConditions.checkMulticastAddress(multicastAddress);
+        NornConditions.checkMulticastPort(multicastPort);
+        NornConditions.checkRMIRegistryPort(registryPort);
+
+        NornNode node;
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
-        }
-
-        if (multicastAddress == null || multicastAddress.length() == 0
-                || !NornUtility.isValidMulticastAddress(multicastAddress)) {
-            throw new IllegalArgumentException("Multicast address must be given and contains a valid address " +
-                    "between 224.0.0.0 and 239.255.255.255");
-        }
-
-        if (multicastPort < 1 || multicastPort > 65535) {
-            throw new IllegalArgumentException("Mutilcast port must be between 1 and 65535");
-        }
-
-        if (registryPort < 1 || registryPort > 65535) {
-            throw new IllegalArgumentException("RMI registry port must be between 1 and 65535");
         }
 
         final NornNodeInfo nornNodeInfo = new NornNodeInfo();
@@ -223,6 +214,8 @@ public final class LocateNorn {
      *
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException
+     *                                  if an argument is not valid.
      */
     public static NornNode getNode()
             throws RemoteException {
@@ -242,6 +235,8 @@ public final class LocateNorn {
      * @param socketTimeout the specified timeout in milliseconds
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException
+     *                                  if an argument is not valid.
      */
     public static NornNode getNode(int socketTimeout)
             throws RemoteException {
@@ -260,6 +255,8 @@ public final class LocateNorn {
      * @param multicastAddress address for the multicast group
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException
+     *                                  if an argument is not valid.
      */
     public static NornNode getNode(String multicastAddress)
             throws RemoteException {
@@ -279,6 +276,8 @@ public final class LocateNorn {
      * @param multicastPort    port on which the multicast accepts requests
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException
+     *                                  if an argument is not valid.
      */
     public static NornNode getNode(String multicastAddress, int multicastPort)
             throws RemoteException {
@@ -296,6 +295,8 @@ public final class LocateNorn {
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
      * @see com.github.mgeiss.norn.util.NornConfiguration
+     * @throws java.lang.IllegalArgumentException
+     *                                  if an argument is not valid.
      */
     public static NornNode getNode(NornConfiguration nornConfiguration)
             throws RemoteException {
@@ -317,24 +318,16 @@ public final class LocateNorn {
      * @param socketTimeout    the specified timeout in milliseconds
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException
+     *                                  if an argument is not valid.
      */
     public static NornNode getNode(final String multicastAddress, final int multicastPort, final int socketTimeout)
             throws RemoteException {
-        NornNode node = null;
+        NornConditions.checkMulticastAddress(multicastAddress);
+        NornConditions.checkMulticastPort(multicastPort);
+        NornConditions.checkSocketTimeout(socketTimeout);
 
-        if (multicastAddress == null || multicastAddress.length() == 0
-                || !NornUtility.isValidMulticastAddress(multicastAddress)) {
-            throw new IllegalArgumentException("Multicast address must be given and contains a valid address " +
-                    "between 224.0.0.0 and 239.255.255.255");
-        }
-
-        if (multicastPort < 1 || multicastPort > 65535) {
-            throw new IllegalArgumentException("Mutilcast port must be between 1 and 65535");
-        }
-
-        if (socketTimeout < 0) {
-            throw new IllegalArgumentException("Socket timeout must be greater or equals 0");
-        }
+        NornNode node;
 
         try (final MulticastSocket multicastSocket = new MulticastSocket()) {
             final InetAddress address = InetAddress.getByName(multicastAddress);

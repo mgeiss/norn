@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Markus Geiss
+ * Copyright 2012 - 2013 Markus Geiss
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -18,8 +18,6 @@ package com.github.mgeiss.norn.util;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The <code>NornProperties</code> class represents a persistent set of properties.
@@ -29,16 +27,10 @@ import java.util.logging.Logger;
  */
 public final class NornProperties {
 
-    private static final String MULTICAST_ADDRESS_PROPERTY = "com.github.mgeiss.norn.multicast.address";
-    private static final String MULTICAST_PORT_PROPERTY = "com.github.mgeiss.norn.multicast.port";
-    private static final String SOCKET_TIMEOUT_PROPERTY = "com.github.mgeiss.norn.multicast.timeout";
-    private static final String RMI_REGISTRY_PORT_PROPERTY = "com.github.mgeiss.norn.rmi.registry.port";
-    private static final String MASTER_NODE_PROPERTY = "com.github.mgeiss.norn.node.master";
-
-    private String multicastAddress;
-    private int multicastPort = -1;
-    private int socketTimeout = -1;
-    private int rmiRegistryPort = -1;
+    private String multicastAddress = NornConfiguration.DEFAULT_MULTICAST_ADDRESS;
+    private int multicastPort = NornConfiguration.DEFAULT_MULTICAST_PORT;
+    private int socketTimeout = NornConfiguration.DEFAULT_SOCKET_TIMEOUT;
+    private int rmiRegistryPort = NornConfiguration.DEFAULT_RMI_REGISTRY_PORT;
     private boolean masterNode;
 
     private NornProperties() {
@@ -56,19 +48,30 @@ public final class NornProperties {
      * @see java.util.Properties
      */
     public static NornProperties load() {
+        final NornProperties nornProperties = new NornProperties();
+
         final Properties properties = new Properties();
         try {
             properties.load(NornProperties.class.getResourceAsStream("/norn.properties"));
-        } catch (IOException ex) {
-            Logger.getLogger(NornProperties.class.getName()).log(Level.SEVERE, "Could not load norn.properties!", ex);
-        }
 
-        final NornProperties nornProperties = new NornProperties();
-        nornProperties.setMulticastAddress(properties.getProperty(NornProperties.MULTICAST_ADDRESS_PROPERTY));
-        nornProperties.setMulticastPort(Integer.valueOf(properties.getProperty(NornProperties.MULTICAST_PORT_PROPERTY)));
-        nornProperties.setSocketTimeout(Integer.valueOf(properties.getProperty(NornProperties.SOCKET_TIMEOUT_PROPERTY)));
-        nornProperties.setRmiRegistryPort(Integer.valueOf(properties.getProperty(NornProperties.RMI_REGISTRY_PORT_PROPERTY)));
-        nornProperties.setMaster(Boolean.valueOf(properties.getProperty(NornProperties.MASTER_NODE_PROPERTY)));
+            final String multicastAddressProperty = properties.getProperty("com.github.mgeiss.norn.multicast.address");
+            final Integer multicastPortProperty = Integer.valueOf(properties.getProperty("com.github.mgeiss.norn" +
+                    ".multicast.port"));
+            final Integer socketTimeoutProperty = Integer.valueOf(properties.getProperty("com.github.mgeiss.norn" +
+                    ".multicast.timeout"));
+            final Integer rmiRegistryPortProperty = Integer.valueOf(properties.getProperty("com.github.mgeiss.norn" +
+                    ".rmi.registry.port"));
+            final Boolean masterNodeProperty = Boolean.valueOf(properties.getProperty("com.github.mgeiss.norn.node" +
+                    ".master"));
+
+            nornProperties.setMulticastAddress(multicastAddressProperty);
+            nornProperties.setMulticastPort(multicastPortProperty);
+            nornProperties.setRmiRegistryPort(rmiRegistryPortProperty);
+            nornProperties.setSocketTimeout(socketTimeoutProperty);
+            nornProperties.setMaster(masterNodeProperty);
+        } catch (IOException ex) {
+            // intentionally left blank, using default values
+        }
 
         return nornProperties;
     }
@@ -165,8 +168,11 @@ public final class NornProperties {
         if (this.rmiRegistryPort != that.rmiRegistryPort) {
             return false;
         }
+        if (this.masterNode != that.masterNode) {
+            return false;
+        }
 
-        return this.masterNode == that.masterNode;
+        return true;
     }
 
     @Override

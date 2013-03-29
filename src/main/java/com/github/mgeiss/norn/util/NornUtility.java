@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Markus Geiss
+ * Copyright 2012 - 2013 Markus Geiss
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,7 +27,6 @@ import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * <code>NornUtility</code> provides some utility methods like converting a
@@ -36,9 +35,9 @@ import java.util.StringTokenizer;
  * Also it provide a method to calculate the current JVM load.
  *
  * @author Markus Geiss
- * @version 1.1.0
+ * @version 2.1.0
  */
-public class NornUtility {
+public final class NornUtility {
 
     /**
      * <code>MathContext</code> used to round load t 2 decimal places.
@@ -166,36 +165,5 @@ public class NornUtility {
         load = bigDecimal.round(NornUtility.DECIMAL_ROUND_2).doubleValue();
 
         return load;
-    }
-
-    /**
-     * <code>isValidMulticastAddress</code> uses a simple test algorithm to check if the given string contains a
-     * valid multicast address.
-     * <p/>
-     * <p>This means the given string must contain an IP address between 224.0.0.0  and 239.255.255.255.
-     *
-     * @param multicastAddress multicast address to validate
-     * @return true if the string is a valid multicast address, else false
-     */
-    public static boolean isValidMulticastAddress(String multicastAddress) {
-        final StringTokenizer tokenizer = new StringTokenizer(multicastAddress, ".");
-        if (tokenizer.countTokens() != 4) {
-            return false;
-        }
-
-        final int firstOctet = Integer.valueOf(tokenizer.nextToken());
-        if (firstOctet < 224 || firstOctet > 239) {
-            return false;
-        }
-
-        int nextOctet;
-        while (tokenizer.hasMoreTokens()) {
-            nextOctet = Integer.valueOf(tokenizer.nextToken());
-            if (nextOctet < 0 || nextOctet > 255) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

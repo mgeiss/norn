@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Markus Geiss
+ * Copyright 2012 - 2013 Markus Geiss
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,8 +19,6 @@ import com.github.mgeiss.norn.util.NornUtility;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * <code>NornNodeThread</code> is the listening thread for incoming client
@@ -70,18 +68,22 @@ public final class NornNodeThread
                     final InetAddress address = message.getAddress();
                     final int port = message.getPort();
 
-                    this.sendNodeInfo(address, port);
+                    try {
+                        this.sendNodeInfo(address, port);
+                    } catch (IOException ioex) {
+                        // intentionally left blank, just ignore only sending failed
+                    }
                 } catch (SocketException sex) {
                     // somebody stopped this thread
                     break;
                 }
             }
         } catch (IOException ioex) {
-            Logger.getGlobal().log(Level.SEVERE, ioex.getMessage(), ioex);
-        }
-
-        if (this.multicastSocket != null && !this.multicastSocket.isClosed()) {
-            this.multicastSocket.close();
+            throw new RuntimeException(ioex);
+        } finally {
+            if (this.multicastSocket != null && !this.multicastSocket.isClosed()) {
+                this.multicastSocket.close();
+            }
         }
     }
 
@@ -112,9 +114,9 @@ public final class NornNodeThread
         final byte[] messageBuffer = NornUtility.nodeInfo2ByteArray(nodeInfo);
 
         final DatagramPacket message = new DatagramPacket(messageBuffer, messageBuffer.length, address, port);
-        try (final DatagramSocket datagrammSocket = new DatagramSocket()) {
-            datagrammSocket.send(message);
-            datagrammSocket.close();
+        try (final DatagramSocket datagramSocket = new DatagramSocket()) {
+            datagramSocket.send(message);
+            datagramSocket.close();
         }
     }
 }

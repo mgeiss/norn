@@ -1,5 +1,5 @@
 /**
- * Copyright 2012 Markus Geiss
+ * Copyright 2012 - 2013 Markus Geiss
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,19 +21,42 @@ import java.util.Objects;
  * <code>NornConfiguration</code> is used to programmatically create a <code>NornNode</code>.
  *
  * @author Markus Geiss
- * @version 2.0.0
+ * @version 2.1.0
  */
 public final class NornConfiguration {
 
     /**
+     *
+     */
+    public static final String DEFAULT_MULTICAST_ADDRESS = "234.5.6.7";
+
+    /**
+     *
+     */
+    public static final int DEFAULT_MULTICAST_PORT = 52000;
+
+    /**
+     *
+     */
+    public static final int DEFAULT_RMI_REGISTRY_PORT = 1099;
+
+    /**
+     *
+     */
+    public static final int DEFAULT_SOCKET_TIMEOUT = 5000;
+
+    /**
      * <code>Builder</code> realizes the builder pattern for a <code>NornConfiguration</code>.
+     *
+     * @author Markus Geiss
+     * @version 2.1.0
      */
     public static final class Builder {
-        private String multicastAddress = "234.5.6.7";
-        private int multicastPort = 42000;
-        private int rmiRegistryPort = 1099;
-        private int socketTimeout = 5000;
-        private boolean master = false;
+        private String multicastAddress = NornConfiguration.DEFAULT_MULTICAST_ADDRESS;
+        private int multicastPort = NornConfiguration.DEFAULT_MULTICAST_PORT;
+        private int rmiRegistryPort = NornConfiguration.DEFAULT_RMI_REGISTRY_PORT;
+        private int socketTimeout = NornConfiguration.DEFAULT_SOCKET_TIMEOUT;
+        private boolean master;
 
         /**
          * Sole constructor.
@@ -47,13 +70,11 @@ public final class NornConfiguration {
          *
          * @param multicastAddress the multicast address
          * @return this builder instance
+         * @throws java.lang.IllegalArgumentException
          */
         public Builder multicastAddress(final String multicastAddress) {
-            if (multicastAddress == null || multicastAddress.length() == 0
-                    || !NornUtility.isValidMulticastAddress(multicastAddress)) {
-                throw new IllegalArgumentException("Multicast address must be given and contains a valid address " +
-                        "between 224.0.0.0 and 239.255.255.255");
-            }
+            NornConditions.checkMulticastAddress(multicastAddress);
+
             this.multicastAddress = multicastAddress;
             return this;
         }
@@ -64,12 +85,10 @@ public final class NornConfiguration {
          * @param multicastPort a valid port number greater 0 and equals or lesser 65535
          * @return this builder instance
          * @throws java.lang.IllegalArgumentException
-         *          if the port number equals or is lesser 0 and greater 65535
          */
         public Builder multicastPort(final int multicastPort) {
-            if (multicastPort < 1 || multicastPort > 65535) {
-                throw new IllegalArgumentException("Mutilcast port must be between 1 and 65535");
-            }
+            NornConditions.checkMulticastPort(multicastPort);
+
             this.multicastPort = multicastPort;
             return this;
         }
@@ -80,12 +99,10 @@ public final class NornConfiguration {
          * @param rmiRegistryPort the rmi registry port
          * @return this builder instance
          * @throws java.lang.IllegalArgumentException
-         *          if the port number equals or is lesser 0 and greater 65535
          */
         public Builder rmiRegistryPort(final int rmiRegistryPort) {
-            if (rmiRegistryPort < 1 || rmiRegistryPort > 65535) {
-                throw new IllegalArgumentException("RMI registry port must be between 1 and 65535");
-            }
+            NornConditions.checkRMIRegistryPort(rmiRegistryPort);
+
             this.rmiRegistryPort = rmiRegistryPort;
             return this;
         }
@@ -96,12 +113,10 @@ public final class NornConfiguration {
          * @param socketTimeout the socket timeout
          * @return this builder instance
          * @throws java.lang.IllegalArgumentException
-         *          if the timeout ist lesser than 0
          */
         public Builder socketTimeout(final int socketTimeout) {
-            if (socketTimeout < 0) {
-                throw new IllegalArgumentException("Socket timeout must be greater or equals 0");
-            }
+            NornConditions.checkSocketTimeout(socketTimeout);
+
             this.socketTimeout = socketTimeout;
             return this;
         }
@@ -226,8 +241,11 @@ public final class NornConfiguration {
         if (this.socketTimeout != that.socketTimeout) {
             return false;
         }
+        if (this.master != that.master) {
+            return false;
+        }
 
-        return this.master == that.master;
+        return true;
     }
 
     @Override
