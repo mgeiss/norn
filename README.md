@@ -10,7 +10,7 @@ world. For more information see [Wikipedia](http://en.wikipedia.org/wiki/Norns).
 
 The approach of this project is to provide a simple java remoting cluster, that
 feels like using RMI. It uses UDP multicast to find all RMI registry and connect
-to a Node using a simple load algorhythm.
+to a Node using a simple load algorithm.
 
 People
 ------
@@ -50,10 +50,10 @@ limitations under the License.
 
 Maven
 -----
-To use norn just add the follwing dependency to your local pom.xml:
+To use norn just add the following dependency to your local pom.xml:
 
     <dependency>
         <groupId>com.github.mgeiss</groupId>
         <artifactId>norn</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
     </dependency>

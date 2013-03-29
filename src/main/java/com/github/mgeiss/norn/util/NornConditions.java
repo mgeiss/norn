@@ -18,14 +18,32 @@ package com.github.mgeiss.norn.util;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
+/**
+ * <code>NornConditions</code> provides simple static methods to be called at the start of your own methods to verify
+ * correct arguments.
+ * <p/>
+ * @author Markus Geiss
+ * @version 2.1.0
+ */
 public final class NornConditions {
 
     private static final ResourceBundle messages = ResourceBundle.getBundle("messages");
 
+    /**
+     * Sole constructor.
+     */
     private NornConditions() {
         super();
     }
 
+    /**
+     * Ensures that <code>multicastAddress</code> is not null and consists of a valid IPv4 address in the range from
+     * 224.0.0.0 through 239.255.255.255.
+     *
+     * @param multicastAddress a multicast address
+     * @throws java.lang.IllegalArgumentException if <code>multicastAddress</code> is null or does not consists a IPv4
+     * address within the expected range
+     */
     public static void checkMulticastAddress(String multicastAddress) {
 
         boolean checkFailed = false;
@@ -58,12 +76,27 @@ public final class NornConditions {
         }
     }
 
+    /**
+     * Ensures that <code>multicastPort</code> consists of a valid dynamic port in the range from 49152 through 65535.
+     *
+     * @param multicastPort a multicast port
+     * @throws java.lang.IllegalArgumentException if <code>multicastPort</code> does not consists a port within the
+     * expected range
+     */
     public static void checkMulticastPort(int multicastPort) {
         if (multicastPort < 49152 || multicastPort > 65535) {
             throw new IllegalArgumentException(messages.getString("message.illegal.argument.multicast.port"));
         }
     }
 
+    /**
+     * Ensures that <code>rmiRegistryPort</code> is either 1099 or consits of a valid dynamic port in the range from
+     * 41952 through 65535.
+     *
+     * @param rmiRegistryPort a RMI registry port
+     * @throws java.lang.IllegalArgumentException if <code>rmiRegistryPort</code> is not 1099 or does not consists a
+     * port within the expected range
+     */
     public static void checkRMIRegistryPort(int rmiRegistryPort) {
         if (rmiRegistryPort != 1099
                 && (rmiRegistryPort < 49152 || rmiRegistryPort > 65535)) {
@@ -71,6 +104,13 @@ public final class NornConditions {
         }
     }
 
+    /**
+     * Ensures that <code>socketTimeout</code> consists of a valid number in the range from 0 to 2147483647.
+     *
+     * @param socketTimeout a socket timeout
+     * @throws java.lang.IllegalArgumentException if <code>socketTimeout</code> does not consists of a number within
+     * the expected range
+     */
     public static void checkSocketTimeout(int socketTimeout) {
         if (socketTimeout < 0 || socketTimeout > Integer.MAX_VALUE) {
             throw new IllegalArgumentException(messages.getString("message.illegal.argument.socket.timeout"));

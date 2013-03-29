@@ -50,14 +50,18 @@ public final class LocateNorn {
     }
 
     /**
-     * Creates and exports a <code>NornNode</code> instance on the local host that accepts requests on
-     * port 42000. This instance will join the multicast group on 234.5.6.7.
+     * Creates and exports a <code>NornNode</code> instance on the local host. All values from
+     * <code>NornProperties</code> will be used.
      * <p/>
      * <p>Note that also a <code>Registry</code> instance will be created and exported on the local
-     * host that accepts requests on port 1099.
+     * host.
      *
      * @return the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode createNode()
             throws RemoteException {
@@ -68,15 +72,20 @@ public final class LocateNorn {
     }
 
     /**
-     * Creates and exports a <code>NornNode</code> instance on the local host that accepts requests on
-     * port 42000. This instance will join the multicast group on 234.5.6.7.
+     * Creates and exports a <code>NornNode</code> instance on the local host. All values from
+     * <code>NornProperties</code> will be used. <code>master</code> will override the default value from
+     * <code>NornProperties</code>.
      * <p/>
      * <p>Note that also a <code>Registry</code> instance will be created and exported on the local
-     * host that accepts requests on port 1099.
+     * host.
      *
      * @param master flags this node as a cluster master
      * @return the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode createNode(final boolean master)
             throws RemoteException {
@@ -87,17 +96,21 @@ public final class LocateNorn {
     }
 
     /**
-     * Creates and exports a <code>NornNode</code> instance on the local host that accepts requests on
-     * port 42000. This instance will join the multicast group on the specified <code>multicastAddress</code>.
+     * Creates and exports a <code>NornNode</code> instance on the local host. All values from
+     * <code>NornProperties</code> will be used. <code>multicastAddress</code> will override the default value from
+     * <code>NornProperties</code>.
      * <p/>
      * <p>Note that also a <code>Registry</code> instance will be created and exported on the local
-     * host that accepts requests on port 1099.
+     * host.
      *
      * @param multicastAddress address for the multicast group
      * @return the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConfiguration
+     * @see com.github.mgeiss.norn.util.NornConditions
      */
     public static NornNode createNode(final String multicastAddress)
             throws RemoteException {
@@ -108,19 +121,22 @@ public final class LocateNorn {
     }
 
     /**
-     * Creates and exports a <code>NornNode</code> instance on the local host that accepts requests on the specified
-     * <code>mulitcastPort</code>. This instance will join the multicast group on the specified
-     * <code>multicastAddress</code>.
+     * Creates and exports a <code>NornNode</code> instance on the local host. All values from
+     * <code>NornProperties</code> will be used. <code>multicastAddress</code> and <code>multicastPort</code> will
+     * override the default values from <code>NornProperties</code>.
      * <p/>
      * <p>Note that also a <code>Registry</code> instance will be created and exported on the local
-     * host that accepts requests on port 1099.
+     * host.
      *
      * @param multicastAddress address for the multicast group
      * @param multicastPort    port on which the udp multicast accepts requests
      * @return the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConfiguration
+     * @see com.github.mgeiss.norn.util.NornConditions
      */
     public static NornNode createNode(final String multicastAddress, final int multicastPort)
             throws RemoteException {
@@ -140,6 +156,7 @@ public final class LocateNorn {
      * @param nornConfiguration configuration to use
      * @return the norn node
      * @throws java.rmi.RemoteException
+     * @see java.rmi.registry.Registry
      * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode createNode(final NornConfiguration nornConfiguration)
@@ -164,8 +181,9 @@ public final class LocateNorn {
      * @param master           flags this node as a cluster master
      * @return the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornConditions
      */
     public static NornNode createNode(final String multicastAddress, final int multicastPort, final int registryPort,
                                       final boolean master)
@@ -206,16 +224,17 @@ public final class LocateNorn {
     }
 
     /**
-     * Returns a reference to the <code>NornNode</code> for the default multicast address 234.5.6.7 on the
-     * default multicast port 42000. <code>getNode</code> will block for 5 seconds to receive node informations.
+     * Returns a reference to the <code>NornNode</code>. All values from <code>NornProperties</code> will be used.
      * <p/>
      * <p>Note that also a reference for the remote object <code>Registry</code> will be created on the host and port
      * specified by the <code>NornNode</code>.
      *
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode getNode()
             throws RemoteException {
@@ -225,9 +244,8 @@ public final class LocateNorn {
     }
 
     /**
-     * Returns a reference to the <code>NornNode</code> for the default multicast address 234.5.6.7 on the
-     * default multicast port 42000. <code>getNode</code> will block for the specified <code>socketTimeout</code>
-     * to receive node informations.
+     * Returns a reference to the <code>NornNode</code>. All values from <code>NornProperties</code> will be used.
+     * <code>socketTimeout</code> will override the default value from <code>NornProperties</code>.
      * <p/>
      * <p>Note that also a reference for the remote object <code>Registry</code> will be created on the host and port
      * specified by the<code>NornNode</code>.
@@ -235,8 +253,11 @@ public final class LocateNorn {
      * @param socketTimeout the specified timeout in milliseconds
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConditions
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode getNode(int socketTimeout)
             throws RemoteException {
@@ -246,8 +267,8 @@ public final class LocateNorn {
     }
 
     /**
-     * Returns a reference to the <code>NornNode</code> for the specified <code>multicastAddress</code> on the default
-     * multicast port 42000. <code>getNode</code> will block for 5 seconds to receive node informations.
+     * Returns a reference to the <code>NornNode</code>. All values from <code>NornProperties</code> will be used.
+     * <code>multicastAddress</code> will override the default value from <code>NornProperties</code>.
      * <p/>
      * <p>Note that also a reference for the remote object <code>Registry</code> will be created on the host and port
      * specified by the <code>NornNode</code>.
@@ -255,8 +276,11 @@ public final class LocateNorn {
      * @param multicastAddress address for the multicast group
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConditions
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode getNode(String multicastAddress)
             throws RemoteException {
@@ -266,8 +290,9 @@ public final class LocateNorn {
     }
 
     /**
-     * Returns a reference to the <code>NornNode</code> for the specified <code>multicastAddress</code> on the specified
-     * <code>multicastPort</code>. <code>getNode</code> will block for 5 seconds to receive node informations.
+     * Returns a reference to the <code>NornNode</code>. All values from <code>NornProperties</code> will be used.
+     * <code>multicastAddress</code> and <code>multicastPort</code> will override the default values from
+     * <code>NornProperties</code>.
      * <p/>
      * <p>Note that also a reference for the remote object <code>Registry</code> will be created on the host and port
      * specified by the <code>NornNode</code>.
@@ -276,8 +301,11 @@ public final class LocateNorn {
      * @param multicastPort    port on which the multicast accepts requests
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornProperties
+     * @see com.github.mgeiss.norn.util.NornConditions
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornNode getNode(String multicastAddress, int multicastPort)
             throws RemoteException {
@@ -294,9 +322,10 @@ public final class LocateNorn {
      * @param nornConfiguration configuration to use
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see java.rmi.registry.Registry
+     * @see com.github.mgeiss.norn.util.NornConditions
      * @see com.github.mgeiss.norn.util.NornConfiguration
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
      */
     public static NornNode getNode(NornConfiguration nornConfiguration)
             throws RemoteException {
@@ -308,7 +337,7 @@ public final class LocateNorn {
     /**
      * Returns a reference to the <code>NornNode</code> for the specified <code>multicastAddress</code> on the specified
      * <code>multicastPort</code>. <code>getNode</code> will block for the specified <code>socketTimeout</code>
-     * to receive node informations.
+     * to receive node information.
      * <p/>
      * <p>Note that also a reference for the remote object <code>Registry</code> will be created on the host and port
      * specified by the <code>NornNode</code>.
@@ -318,8 +347,8 @@ public final class LocateNorn {
      * @param socketTimeout    the specified timeout in milliseconds
      * @return reference to the norn node
      * @throws java.rmi.RemoteException
-     * @throws java.lang.IllegalArgumentException
-     *                                  if an argument is not valid.
+     * @throws java.lang.IllegalArgumentException if an argument is not valid.
+     * @see com.github.mgeiss.norn.util.NornConditions
      */
     public static NornNode getNode(final String multicastAddress, final int multicastPort, final int socketTimeout)
             throws RemoteException {

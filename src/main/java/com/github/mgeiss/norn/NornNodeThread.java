@@ -21,9 +21,8 @@ import java.io.IOException;
 import java.net.*;
 
 /**
- * <code>NornNodeThread</code> is the listening thread for incoming client
- * requests. When a client touches this node, the node will send an answer
- * containing information about this node back to the client.
+ * <code>NornNodeThread</code> is the listening thread for incoming client requests. When a client touches this node,
+ * the node will send an answer containing information about this node back to the client.
  *
  * @author Markus Geiss
  * @version 1.0.0
@@ -48,8 +47,8 @@ public final class NornNodeThread
     }
 
     /**
-     * <code>run</code> starts a listener on the multicast address and joins the
-     * group. It will accept requests on the multicast port.
+     * <code>run</code> starts a listener on the multicast address and joins the group. It will accept requests on
+     * the multicast port.
      */
     @Override
     public void run() {

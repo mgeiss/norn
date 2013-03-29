@@ -18,8 +18,8 @@ package com.github.mgeiss.norn;
 import java.io.Serializable;
 
 /**
- * <code>NornNodeInfo</code> holds all information from a remote host. This
- * includes information about the registry address, registry port and the load.
+ * <code>NornNodeInfo</code> holds all information from a remote host. This includes information about the registry
+ * address, registry port and the load.
  *
  * @author Markus Geiss
  * @version 1.1.0

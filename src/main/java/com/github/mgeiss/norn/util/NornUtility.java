@@ -29,8 +29,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * <code>NornUtility</code> provides some utility methods like converting a
- * <code>NornNodeInfo</code> to a byte array and vise versa.
+ * <code>NornUtility</code> provides some utility methods like converting a <code>NornNodeInfo</code> to a byte array
+ * and vise versa.
  * <p/>
  * Also it provide a method to calculate the current JVM load.
  *

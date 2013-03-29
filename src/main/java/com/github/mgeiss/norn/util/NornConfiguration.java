@@ -18,7 +18,7 @@ package com.github.mgeiss.norn.util;
 import java.util.Objects;
 
 /**
- * <code>NornConfiguration</code> is used to programmatically create a <code>NornNode</code>.
+ * <code>NornConfiguration</code> is used to programmatically configure a <code>NornNode</code>.
  *
  * @author Markus Geiss
  * @version 2.1.0
@@ -26,22 +26,22 @@ import java.util.Objects;
 public final class NornConfiguration {
 
     /**
-     *
+     * Default address for multicast.
      */
     public static final String DEFAULT_MULTICAST_ADDRESS = "234.5.6.7";
 
     /**
-     *
+     * Default port for multicast.
      */
     public static final int DEFAULT_MULTICAST_PORT = 52000;
 
     /**
-     *
+     * Well known port for registry.
      */
     public static final int DEFAULT_RMI_REGISTRY_PORT = 1099;
 
     /**
-     *
+     * Default socket timeout.
      */
     public static final int DEFAULT_SOCKET_TIMEOUT = 5000;
 
@@ -68,9 +68,10 @@ public final class NornConfiguration {
         /**
          * The multicast address used for UDP.
          *
-         * @param multicastAddress the multicast address
+         * @param multicastAddress a multicast address
          * @return this builder instance
-         * @throws java.lang.IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException if <code>multicastAddress</code> is not valid
+         * @see com.github.mgeiss.norn.util.NornConditions#checkMulticastAddress(String)
          */
         public Builder multicastAddress(final String multicastAddress) {
             NornConditions.checkMulticastAddress(multicastAddress);
@@ -82,9 +83,10 @@ public final class NornConfiguration {
         /**
          * The multicast port used for UDP.
          *
-         * @param multicastPort a valid port number greater 0 and equals or lesser 65535
+         * @param multicastPort a multicast port
          * @return this builder instance
-         * @throws java.lang.IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException if <code>multicastPort</code> is not valid
+         * @see com.github.mgeiss.norn.util.NornConditions#checkMulticastPort(int)
          */
         public Builder multicastPort(final int multicastPort) {
             NornConditions.checkMulticastPort(multicastPort);
@@ -96,9 +98,10 @@ public final class NornConfiguration {
         /**
          * The registry port used for RMI.
          *
-         * @param rmiRegistryPort the rmi registry port
+         * @param rmiRegistryPort a rmi registry port
          * @return this builder instance
-         * @throws java.lang.IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException if <code>rmiRegistryPort</code> is not valid
+         * @see com.github.mgeiss.norn.util.NornConditions#checkRMIRegistryPort(int)
          */
         public Builder rmiRegistryPort(final int rmiRegistryPort) {
             NornConditions.checkRMIRegistryPort(rmiRegistryPort);
@@ -110,9 +113,10 @@ public final class NornConfiguration {
         /**
          * The socket timeout used by a client, waiting for a server response.
          *
-         * @param socketTimeout the socket timeout
+         * @param socketTimeout a socket timeout
          * @return this builder instance
-         * @throws java.lang.IllegalArgumentException
+         * @throws java.lang.IllegalArgumentException if <code>socketTimeout</code> is not valid
+         * @see com.github.mgeiss.norn.util.NornConditions#checkSocketTimeout(int)
          */
         public Builder socketTimeout(final int socketTimeout) {
             NornConditions.checkSocketTimeout(socketTimeout);

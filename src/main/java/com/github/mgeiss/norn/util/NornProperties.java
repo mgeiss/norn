@@ -38,14 +38,16 @@ public final class NornProperties {
     }
 
     /**
-     * Reads the property list (key and element pairs) from
-     * <tt>norn.properties</tt>. The file is assumed to use the ISO 8859-1
-     * character encoding; that is each byte is one Latin1 character. Characters
-     * not in Latin1, and certain special characters, are represented in keys
-     * and elements using Unicode escapes.
+     * Reads the property list (key and element pairs) from <tt>norn.properties</tt>. The file is assumed to use the
+     * ISO 8859-1 character encoding; that is each byte is one Latin1 character. Characters not in Latin1,
+     * and certain special characters, are represented in keys and elements using Unicode escapes.
+     * <p/>
+     * If <tt>norn.properties</tt> could not be loaded a <code>NornProperties</code> with default values will be
+     * returned.
      *
-     * @return a new instance of <code>NornProperties</code> or <tt>null</tt>
+     * @return a new instance of <code>NornProperties</code>
      * @see java.util.Properties
+     * @see com.github.mgeiss.norn.util.NornConfiguration
      */
     public static NornProperties load() {
         final NornProperties nornProperties = new NornProperties();
@@ -79,7 +81,7 @@ public final class NornProperties {
     /**
      * Returns the multicast address.
      *
-     * @return the host name or IP address or <tt>null</tt>
+     * @return the host name or IP address
      */
     public String getMulticastAddress() {
         return this.multicastAddress;
@@ -92,7 +94,7 @@ public final class NornProperties {
     /**
      * Returns the multicast port.
      *
-     * @return a valid port number or -1
+     * @return a valid port number
      */
     public int getMulticastPort() {
         return this.multicastPort;
@@ -105,7 +107,7 @@ public final class NornProperties {
     /**
      * Returns the RMI registry port.
      *
-     * @return a valid port number or -1
+     * @return a valid port number
      */
     public int getRmiRegistryPort() {
         return this.rmiRegistryPort;

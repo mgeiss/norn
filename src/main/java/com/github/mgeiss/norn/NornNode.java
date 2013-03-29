@@ -57,8 +57,7 @@ public final class NornNode {
      *
      * @param nodeInfo   node information for this node.
      * @param registry   the remote object registry to be used.
-     * @param nodeThread the multicast listener thread that accepts all
-     *                   requests.
+     * @param nodeThread the multicast listener thread that accepts all requests.
      */
     NornNode(final NornNodeInfo nodeInfo, final Registry registry, final NornNodeThread nodeThread) {
         super();
@@ -68,8 +67,7 @@ public final class NornNode {
     }
 
     /**
-     * Binds a remote reference to the specified
-     * <code>name</code> in this node.
+     * Binds a remote reference to the specified <code>name</code> in this node.
      *
      * @param name the name to associate with the remote reference
      * @param obj  a reference to a remote object
@@ -83,8 +81,7 @@ public final class NornNode {
     }
 
     /**
-     * Removes the binding for the specified
-     * <code>name</code> in this node.
+     * Removes the binding for the specified <code>name</code> in this node.
      *
      * @param name the name to associate with the remote reference
      * @throws java.rmi.RemoteException
@@ -97,10 +94,8 @@ public final class NornNode {
     }
 
     /**
-     * Replaces the binding for the specified
-     * <code>name</code> in this node with the supplied remote reference. If
-     * there is an existing binding for the specified
-     * <code>name</code>, it is discarded.
+     * Replaces the binding for the specified <code>name</code> in this node with the supplied remote reference. If
+     * there is an existing binding for the specified <code>name</code>, it is discarded.
      *
      * @param name the name to associate with the remote reference
      * @param obj  a reference to a remote object
@@ -113,8 +108,7 @@ public final class NornNode {
     }
 
     /**
-     * Returns the remote reference bound to the specified
-     * <code>name</code> in this node.
+     * Returns the remote reference bound to the specified <code>name</code> in this node.
      *
      * @param name the name to associate with the remote reference
      * @return a reference to a remote object
@@ -128,9 +122,8 @@ public final class NornNode {
     }
 
     /**
-     * Returns an array of the names bound in this node. The array will contain
-     * a snapshot of the names bound in this node at the time of the given
-     * invocation of this method.
+     * Returns an array of the names bound in this node. The array will contain a snapshot of the names bound in this
+     * node at the time of the given invocation of this method.
      *
      * @return an array of the names bound in this registry
      * @throws java.rmi.RemoteException
@@ -142,9 +135,8 @@ public final class NornNode {
     }
 
     /**
-     * Retunrs a reference to this nodes information containing the multicast
-     * address, the mulitcast port, the regesitry address, the registry port and
-     * the calculated JVM load.
+     * Returns a reference to this nodes information containing the multicast address, the mulitcast port,
+     * the registry address, the registry port and the calculated JVM load.
      *
      * @return a reference to this nodes information
      */
