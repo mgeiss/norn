@@ -14,7 +14,7 @@ to a Node using a simple load algorithm.
 
 People
 ------
-Norn has been written by Markus Gei&szlig; (markus.geiss@live.com).
+Norn has been written by Markus Gei&szlig; (markus.geiss@live.de).
 
 Usage
 -----
