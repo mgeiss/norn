@@ -14,7 +14,7 @@ to a Node using a simple load algorithm.
 
 People
 ------
-Norn has been written by Markus Geiss (mgeiss257@gmail.com).
+Norn has been written by Markus Gei&szlig; (markus.geiss@live.com).
 
 Usage
 -----
@@ -34,7 +34,7 @@ Since version 2.0.0 it is possible to configure a node programmatically.
 
 License
 -------
-Copyright 2012 - 2013 Markus Geiss
+Copyright 2012 - 2014 Markus Gei&szlig;
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
