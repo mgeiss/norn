@@ -30,7 +30,8 @@ public class NornTest {
 
     private static NornNode serverNornNode;
     private static DeepThought deepThought = new DeepThoughtImpl();
-    private static final StringBuilder TELEMETRY = new StringBuilder("<<< TELEMETRY >>>\n");
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final StringBuilder TELEMETRY = new StringBuilder("<<< TELEMETRY >>>" + NornTest.LINE_SEPARATOR);
 
     public NornTest() {
         super();
@@ -43,13 +44,13 @@ public class NornTest {
             long time = System.currentTimeMillis();
             NornTest.serverNornNode = LocateNorn.createNode();
             NornTest.TELEMETRY.append("Server node started in ")
-                    .append(System.currentTimeMillis() - time).append(" ms!\n");
+                    .append(System.currentTimeMillis() - time).append(" ms!" + NornTest.LINE_SEPARATOR);
 
             time = System.currentTimeMillis();
             NornTest.serverNornNode.rebind(DeepThought.class.getSimpleName(),
                     UnicastRemoteObject.exportObject(NornTest.deepThought, 0));
             NornTest.TELEMETRY.append("Remote object bound in ")
-                    .append(System.currentTimeMillis() - time).append(" ms!\n");
+                    .append(System.currentTimeMillis() - time).append(" ms!" + NornTest.LINE_SEPARATOR);
         } catch (RemoteException rex) {
             fail("RemoteException: " + rex.getMessage());
         }
@@ -60,17 +61,17 @@ public class NornTest {
         try {
             long time = System.currentTimeMillis();
             final NornNode nornNode = LocateNorn.getNode(100);
-            NornTest.TELEMETRY.append("Node located in ").append(System.currentTimeMillis() - time).append(" ms!\n");
+            NornTest.TELEMETRY.append("Node located in ").append(System.currentTimeMillis() - time).append(" ms!" + NornTest.LINE_SEPARATOR);
 
             time = System.currentTimeMillis();
             final DeepThought deepThoughtRef = (DeepThought) nornNode.lookup(DeepThought.class.getSimpleName());
             NornTest.TELEMETRY.append("Remote object looked up in ")
-                    .append(System.currentTimeMillis() - time).append(" ms!\n");
+                    .append(System.currentTimeMillis() - time).append(" ms!" + NornTest.LINE_SEPARATOR);
 
             time = System.currentTimeMillis();
             final String answer = deepThoughtRef.answerToTheUltimateQuestion();
             NornTest.TELEMETRY.append("Answer to the ultimate question received in ")
-                    .append(System.currentTimeMillis() - time).append(" ms!\n");
+                    .append(System.currentTimeMillis() - time).append(" ms!" + NornTest.LINE_SEPARATOR);
 
             assertEquals("42", answer);
         } catch (NotBoundException nbex) {
@@ -86,9 +87,9 @@ public class NornTest {
             long time = System.currentTimeMillis();
             NornTest.serverNornNode.stop();
             NornTest.TELEMETRY.append("Server node stopped in ")
-                    .append(System.currentTimeMillis() - time).append(" ms!\n");
+                    .append(System.currentTimeMillis() - time).append(" ms!" + NornTest.LINE_SEPARATOR);
         }
-        NornTest.TELEMETRY.append("<<< TELEMETRY >>>\n");
+        NornTest.TELEMETRY.append("<<< TELEMETRY >>>" + NornTest.LINE_SEPARATOR);
         System.out.println(NornTest.TELEMETRY);
     }
 }
